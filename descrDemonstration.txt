@@ -1,0 +1,89 @@
+
+	There are 3 variants of typical document development.
+	Differences are in method of filter menu development. 
+	Design is common for them all, but different performance and way the filter menu is fold/unfold.
+	We've create 3 applications to demonstrate every approach.
+	They are based on qvd files we've received from PENSKE and shows typical report page with filters.
+	
+
+1. All_predefined_pos_in_one.qvw
+	That application was already demonstrated.
+	1.Development features
+		1. been developed for the first demonstration
+		2. as QV cannot change position of objects for every possible menu expanding level there are copy of every object that is under page header.
+			So for instance here are 3 copy of every object. In case of realization some other requirements there will be 4 or 5 such copies, or even more
+		3. that copies stay invisible and only one of them is shown at the moment
+		4. during becoming visible all necessary calculations performed and data refreshes from QV.
+		5. when developer want to change something it stack the problem that there are too many objects that overlay each other and they are mostly invisible.
+		
+	2. Main performance features:
+		1. loading time is about 5 sec. 
+		2. switching between different menu panels 2-3 sec. For some positions - instantly.
+		3. switching affects only objects that appeared in new position
+		4. data on affected objects refreshing, expressions recalculate.
+	
+	Pros
+		Good performance as for document loading
+		Very good performance as for menu switching
+	Cons
+		It is very hard to maintain and develop. One thing is in overlaying objects, and another with some tricky variable managing to show appropriate set of objects.
+		With more complex requirements development is became trickier and time consuming.
+		
+		
+2. Page_switching.qvw
+	That document demonstrates another way to manipulate menu panels.
+	1.Development features
+		1. To avoid mess of the overlapping objects and sophisticated visibility management for all state of menu expanding there is separate page. 
+		2. According to menu state we just activate page with required objects positions and show it instead of current page. 
+		
+	2. Main performance features:
+		1. loading time is about 3.5-3.8 sec. 
+		2. switching between different menu panels 3.5-3.8 sec.
+		3. switching affects all page objects. All page is totally repaint.
+		4. data on affected objects refreshing, expressions recalculate.
+
+	Pros
+		Excellent performance as for document loading
+		Very good development possibilities
+		
+	Cons
+		Very bad performance as for menu switching
+		With more complex data page switching became worse
+		Due to page reload every time to menu switching depend from internet channel, so that menu switching is the same as document loading.
+		
+3. Document_extension.qvw
+	1.Development features
+		1. special for that project we are creating document extension that is set for document once and give us possibility to manipulate object positions
+		2. that is javascript code that executed on the client side and is not change any QV data.
+		3. it is universal for any quantity of menus/panels/objects
+		4. for using it all elements during development place as for their unfolded state one under another
+		5. all objects that will move should be named (object ID in QlikView) according to special template
+		6. extension finds objects by their names, decides what should be collapsed, became visible or not, what elements should be clickable to expand/collapse menu
+		7. during first time load for one second all objects are shown and then extension make all necessary performing to collapse everything to initial state.
+		
+	2. Main performance features:
+		1. loading time is about 9.6 sec. 
+		2. switching between different menu panels 1 sec.
+		3. switching is not affects any QV object.
+		4. there is nothing to recalculate or refresh
+
+	Pros
+		Excellent performance as for menu switching
+		Excellent development possibilities
+		Excellent possibilities for any scaling - as for data complexity as for menu configuration
+		Future applying for any shifted actions (after some rewriting)
+		
+	Cons
+		Bad performance as for document loading
+		During loading all elements is shown for a second and then disappeared
+		We should spend some time to test it for different versions of browser and environment
+		Despite maintaining of that extension is completely simple - there are some knowledge in JS is required for it changing
+
+Resume
+
+	We consider last two variants for production, cause first is too hard to develop and maintain. 
+	Loading time for first case is just a little bit less than last case, but development hardness is much more tangible.
+	Case 2 seems to be good except it whole page refreshing. That is not like menu should work, but perhaps you'll consider such behavior adequate.
+	Case 3 is spending more time to load, but in every other point of view it much more preferable.
+
+	

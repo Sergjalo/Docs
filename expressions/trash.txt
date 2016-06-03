@@ -1,0 +1,1205 @@
+=If(( vColumnsCount<GetPossibleCount(%ColName)-1 and     isnull(GetFieldSelections(%ColName)))    
+or  ( vColumnsCount<GetPossibleCount(%ColName)   and not isnull(GetFieldSelections(%ColName)))
+,vColumnsCount+1,vColumnsCount
+)
+
+=Replace($(vAMTtoCODE(Replace('_ins ,text_',',','|'))),'|',',')
+
+=$(vAMTtoCODE(Replace('_ins ,text_',',','9')))
+
+It seems like good workaround, but unfortunately Qlik has another bug - it just doesn't parse such a expression:
+=$(vAMTtoCODE(Replace('_ins ,text_',',','*')))
+separete both parts of expression evaluate correctly, 
+Replace('_ins ,text_',',','*')) turns to _ins *text_
+and =$(vAMTtoCODE('to _ins *text_') show me 
+'some text to _ins *text_ and so on'
+but when i write =$(vAMTtoCODE(Replace('_ins ,text_',',','*')))
+it turned to 
+"Error: Error in expression: ')' expected"
+
+=MaxString({
+		         $<MonthID = {$(=Max(MonthID) – 1)}>}
+MonthYear)
+
+=MaxString({$<MonthID ={44} >} MonthYear)
+=MaxString({$<MonthID={12}>} MonthYear) 
+
+=MaxString({
+$<MonthID = {$(=Max(MonthID-1))},
+MonthYear= ,
+Year = ,
+Quarter = ,
+Month = >}
+MonthYear)
+
+=MaxString({
+$<$(vEvalPrMnt)>}
+
+MonthYear) &'   '& $(vEvalPrMnt)
+&$(vEvalPrMnt2('$(=Max(MonthID-1))'))
+&MaxString({
+$<$(vEvalPrMnt2('$(=Max(MonthID-1))'))>}
+MonthYear) 
+
+=$(vEvalPrMnt2('$(=Max(MonthID-1))'))
+=$(vEvalPrMnt)
+
+
+MonthID = {12},
+MonthYear= 
+
+
+'=if(GetSelectedCount(Week) > 0, 'Week = {$(=max(Week))}', 'LastWeekFlag={1}')'
+
+ Sum( {<$(vWeekFilter)>} Value)
+=Sum( {<$(vEvalPrMnt )>} TOTAL_AMT)
+
+='-'&Sum({1<$(vEvalPrMnt)>} TOTAL_AMT)& '-'&Sum( TOTAL_AMT)&' '&$(vEvalPrMnt)
+& '-'&Sum({1<MonthID={12}>} TOTAL_AMT)
+
+sum($(='{<vEvalPrMnt>} MonthID'))
+
+=$(='$<{  '& vEvalPrMnt &'  }>} MonthYear')
+=sum({<MonthID={3}>} WeekID)
+
+='$'&num(sum(  {<DATE,[COMP CODE]-={"ALL"}>} TOTAL_AMT)
+/count(DISTINCT{<DATE,[COMP CODE]-={"ALL"}>} [COMP CODE]),'#,##0.00')
+
+=sum($(vExprNumber))
+/count(DISTINCT $(vExprNumber))
+
+{$<MonthID = {$(=Max(MonthID-1))}, MonthYear= >} WeekID
+{<MonthID = {$(=Max(MonthID-1))}, MonthYear= ,[COMP CODE]-={"ALL"}>} TOTAL_AMT
+
+=sum($(=vEvalPrMnt&' TOTAL_AMT'))
+/count(DISTINCT $(=vEvalPrMnt&' [COMP CODE]'))
+
+vEvalPrMnt=
+{<
+MonthID = {$(=Max(MonthID-1))}, 
+MonthYear= ,
+Year = ,
+Quarter = ,
+Month = ,
+[COMP CODE]-={"ALL"}
+>}
+
+
+
+Sheet caption	Object type	Object ID	Object Caption	Page	Location	Category	Expression	Type	Valid	Result	CalcTime	Modified
+Sheet1	Text object	TX97		General	Definition	Text	-	Text	Unchecked		0	False
+Sheet1	Text object	TX88		General	Definition	Text	-	Text	Unchecked		0	False
+Sheet1	Text object	TX76		General	Definition	Text	-	Text	Unchecked		0	False
+Sheet1	Inputbox	IB05		General	Membertext	Member	 	Text	Unchecked		0	False
+Sheet1	Inputbox	IB04		General	Membertext	Member	 	Text	Unchecked		0	False
+Sheet1	Inputbox	IB01		General	Membertext	Member	 	Text	Unchecked		0	False
+Sheet1	Text object	TX778		General	Definition	Text	           All Reports > 	Text	Unchecked		0	False
+Sheet1	Text object	TX189		General	Definition	Text	    Apply Saved Filters:                                                    	Text	Unchecked		0	False
+Sheet1	Text object	TX718		General	Definition	Text	   Download Report	Text	Unchecked		0	False
+Sheet1	Text object	TX126		General	Definition	Text	   Save Filters	Text	Unchecked		0	False
+Sheet1	Text object	TX150		General	Definition	Text	   Select Group	Text	Unchecked		0	False
+Sheet1	Text object	TX185		General	Definition	Text	 Applied Filters:	Text	Unchecked		0	False
+Sheet1	Text object	TX164		General	Definition	Text	 APPLIED FILTERS:	Text	Unchecked		0	False
+Sheet1	Text object	TX160		General	Definition	Text	 APPLIED FILTERS:	Text	Unchecked		0	False
+Sheet1	Text object	TX180		General	Definition	Text	 NAME	Text	Unchecked		0	False
+Sheet1	Text object	TX130		General	Definition	Text	 NAME	Text	Unchecked		0	False
+Sheet1	Text object	TX57		Actions	Action	Field Select	%Calendar.TempDate	Field	Unchecked		0	False
+Sheet1	Text object	TX449		Actions	Action	Eov	%Calendar.TempDate	Field	Unchecked		0	False
+Sheet1	Text object	TX441		Actions	Action	Eov	%Calendar.TempDate	Field	Unchecked		0	False
+Sheet1	Text object	TX247		Actions	Action	Eov	%Calendar.TempDate	Field	Unchecked		0	False
+Sheet1	Listbox	LB36	(unavailable)[%ColName]	General	Definition	Field	%ColName	Field	Unchecked		0	False
+Sheet1	Listbox	LB35	(unavailable)[%ColName]	General	Definition	Field	%ColName	Field	Unchecked		0	False
+Sheet1	Listbox	LB34	(unavailable)[%ColName]	General	Definition	Field	%ColName	Field	Unchecked		0	False
+Sheet1	Text object	TX742		Actions	Action	Lock	%DATE	Field	Unchecked		0	False
+Sheet1	Text object	TX742		Actions	Action	Field Select	%DATE	Field	Unchecked		0	False
+Sheet1	Text object	TX739		Actions	Action	Lock	%DATE	Field	Unchecked		0	False
+Sheet1	Text object	TX739		Actions	Action	Field Select	%DATE	Field	Unchecked		0	False
+Sheet1	Text object	TX56		Actions	Action	Lock	%DATE	Field	Unchecked		0	False
+Sheet1	Text object	TX56		Actions	Action	Field Select	%DATE	Field	Unchecked		0	False
+Sheet1	Text object	TX55		Actions	Action	Lock	%DATE	Field	Unchecked		0	False
+Sheet1	Text object	TX55		Actions	Action	Field Select	%DATE	Field	Unchecked		0	False
+Sheet1	Sheet	SH02	Sheet1	Actions	Action	Lock	%DATE	Field	Unchecked		0	False
+Sheet1	Sheet	SH02	Sheet1	Actions	Action	Field Select	%DATE	Field	Unchecked		0	False
+Sheet1	Sheet	SH02	Sheet1	Actions	Action	Unlock	%DATE	Field	Unchecked		0	False
+Sheet1	Text object	TX722		Actions	Action	Eov	%DOWNLOAD	Field	Unchecked		0	False
+Sheet1	Listbox	LB33	(unavailable)[%DOWNLOAD]	General	Definition	Field	%DOWNLOAD	Field	Unchecked		0	False
+Sheet1	Text object	TX449		Actions	Action	Eov	%Month	Field	Unchecked		0	False
+Sheet1	Text object	TX441		Actions	Action	Eov	%Month	Field	Unchecked		0	False
+Sheet1	Text object	TX775		Actions	Action	Field Select	%TablePageNum	Field	Unchecked		0	False
+Sheet1	Text object	TX409		Actions	Action	Field Select	%TablePageNum	Field	Unchecked		0	False
+Sheet1	Text object	TX408		Actions	Action	Field Select	%TablePageNum	Field	Unchecked		0	False
+Sheet1	Text object	TX370		Actions	Action	Field Select	%TablePageNum	Field	Unchecked		0	False
+Sheet1	Text object	TX369		Actions	Action	Field Select	%TablePageNum	Field	Unchecked		0	False
+Sheet1	Text object	TX205		Actions	Action	Field Select	%TablePageNum	Field	Unchecked		0	False
+Sheet1	Text object	TX204		Actions	Action	Field Select	%TablePageNum	Field	Unchecked		0	False
+Sheet1	Sheet	SH02	Sheet1	Actions	Action	Field Select	%TablePageNum	Field	Unchecked		0	False
+Sheet1	Text object	TX86		General	Definition	Text	+
+Sheet1	Text object	TX84		General	Definition	Text	+
+Sheet1	Text object	TX74		General	Definition	Text	+
+Sheet1	Text object	TX72		General	Definition	Text	+
+Sheet1	Text object	TX70		General	Definition	Text	+
+Sheet1	Text object	TX408		General	Definition	Text	<    PREV
+Sheet1	Text object	TX369		General	Definition	Text	<    PREV
+Sheet1	Text object	TX205		General	Definition	Text	<    PREV
+Sheet1	Text object	TX57		Actions	Action	Field Select	=''
+Sheet1	Text object	TX177		Actions	Action	Set Value	=''
+Sheet1	Text object	TX167		Actions	Action	Set Value	=''
+Sheet1	Text object	TX155		Actions	Action	Set Value	=''
+Sheet1	Text object	TX152		Actions	Action	Set Value	=''
+Sheet1	Text object	TX151		Actions	Action	Set Value	=''
+Sheet1	Text object	TX137		General	Definition	Text	=     if($(vDateScroll)=0 and max({1}%DATE)=max(%DATE) 
+and ( wildmatch(GetFieldSelections(%DATE_NAME),'MONTH') or GetSelectedCount(%DATE_NAME)=0)
+,'                        This '
+
+,if($(vDateScroll)=0 and max({1}%DATE)=max(%DATE) and not ( wildmatch(GetFieldSelections(%DATE_NAME),'MONTH') or GetSelectedCount(%DATE_NAME)=0)
+,'                        Same '
+
+
+	  ,  if($(vDateScroll)=-1 and month(AddMonths( max({1}%DATE),-1))=month(max(%DATE))
+and year(AddMonths( max({1}%DATE),-1))=year(max(%DATE)) and ( wildmatch(GetFieldSelections(%DATE_NAME),'MONTH') or GetSelectedCount(%DATE_NAME)=0)
+	  ,'                        Last ','                        ')))
+ 
+
+
+
+&if(GetSelectedCount(%DATE_NAME)=0,
+'Month:',
+if(wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),
+'Month:'	
+	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),
+	'Week:'		
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),
+			'Quarter:'
+				, if(wildmatch(GetFieldSelections(%DATE_NAME),'*YEAR'),
+				'Year:'
+					, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),
+					'Custom:'
+				
+))))))
+&' '&
+$(vLabelDate)
+Sheet1	Text object	TX733		General	Definition	Text	=     if($(vDateScroll)=0 and max({1}%DATE)=max(%DATE) 
+and ( wildmatch(GetFieldSelections(%DATE_NAME),'MONTH') or GetSelectedCount(%DATE_NAME)=0)
+,'                      This '
+
+,if($(vDateScroll)=0 and max({1}%DATE)=max(%DATE) and not ( wildmatch(GetFieldSelections(%DATE_NAME),'MONTH') or GetSelectedCount(%DATE_NAME)=0)
+,'                      Same '
+
+
+	  ,  if($(vDateScroll)=-1 and month(AddMonths( max({1}%DATE),-1))=month(max(%DATE))
+and year(AddMonths( max({1}%DATE),-1))=year(max(%DATE)) and ( wildmatch(GetFieldSelections(%DATE_NAME),'MONTH') or GetSelectedCount(%DATE_NAME)=0)
+	  ,'                      Last ','                            ')))
+ 
+
+
+
+&if(GetSelectedCount(%DATE_NAME)=0,
+'Month:',
+if(wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),
+'Month:'	
+	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),
+	'Week:'		
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),
+			'Quarter:'
+				, if(wildmatch(GetFieldSelections(%DATE_NAME),'*YEAR'),
+				'Year:'
+					, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),
+					'Custom:'
+				
+))))))
+&' '&
+$(vLabelDate)
+Sheet1	Text object	TX727		General	Definition	Text	=     if($(vDateScroll)=0 and max({1}%DATE)=max(%DATE) 
+and ( wildmatch(GetFieldSelections(%DATE_NAME),'MONTH') or GetSelectedCount(%DATE_NAME)=0)
+,'This '
+
+,if($(vDateScroll)=0 and max({1}%DATE)=max(%DATE) and not ( wildmatch(GetFieldSelections(%DATE_NAME),'MONTH') or GetSelectedCount(%DATE_NAME)=0)
+,'Same '
+
+
+	  ,  if($(vDateScroll)=-1 and month(AddMonths( max({1}%DATE),-1))=month(max(%DATE))
+and year(AddMonths( max({1}%DATE),-1))=year(max(%DATE)) and ( wildmatch(GetFieldSelections(%DATE_NAME),'MONTH') or GetSelectedCount(%DATE_NAME)=0)
+	  ,'Last ','')))
+ 
+
+
+
+&if(GetSelectedCount(%DATE_NAME)=0,
+'Month:',
+if(wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),
+'Month:'	
+	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),
+	'Week:'		
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),
+			'Quarter:'
+				, if(wildmatch(GetFieldSelections(%DATE_NAME),'*YEAR'),
+				'Year:'
+					, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),
+					'Custom:'
+				
+))))))
+&' '&
+$(vLabelDate)
+Sheet1	Text object	TX399		General	Definition	Text	='   '&GetFieldSelections(%TablePageNum,', ',1)
+Sheet1	Text object	TX360		General	Definition	Text	='   '&GetFieldSelections(%TablePageNum,', ',1)
+Sheet1	Text object	TX214		General	Definition	Text	='   '&GetFieldSelections(%TablePageNum,', ',1)
+Sheet1	Text object	TX435		General	Definition	Text	= if(count([COMP CODE])=0, 'The selected date range contains no data to display.
+Please select other date range.','')
+Sheet1	Text object	TX302		General	Definition	Text	= if(count([COMP CODE])=0, 'The selected date range contains no data to display.
+Please select other date range.','')
+Sheet1	Text object	TX436		General	Definition	Text	= if(count([COMP CODE])=0, 'The selected date range contains no data to display.
+Please select other date range.','')
+Sheet1	Text object	TX438		General	Definition	Text	= if(vEndPeriod-vStartPeriod>720, 'The selected date range is too large to process.
+Please select a small date range.','')
+Sheet1	Text object	TX437		General	Definition	Text	= if(vEndPeriod-vStartPeriod>720, 'The selected date range is too large to process.
+Please select a small date range.','')
+Sheet1	Text object	TX306		General	Definition	Text	= if(vEndPeriod-vStartPeriod>720, 'The selected date range is too large to process.
+Please select a small date range.','')
+Sheet1	Text object	TX423		General	Definition	Text	='$'&num(sum({<$(vHide),[COMP CODE]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"}>}[COMP CODE]),'#,##0.00')
+Sheet1	Text object	TX411		General	Definition	Text	='$'&num(sum({<$(vHide),[COMP CODE]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"}>}[COMP CODE]),'#,##0.00')
+Sheet1	Text object	TX387		General	Definition	Text	='$'&num(sum({<$(vHide),[COMP CODE]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"}>}[COMP CODE]),'#,##0.00')
+Sheet1	Text object	TX383		General	Definition	Text	='$'&num(sum({<$(vHide),[COMP CODE]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"}>}[COMP CODE]),'#,##0.00')
+Sheet1	Text object	TX228		General	Definition	Text	='$'&num(sum({<$(vHide),[COMP CODE]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"}>}[COMP CODE]),'#,##0.00')
+Sheet1	Text object	TX210		General	Definition	Text	='$'&num(sum({<$(vHide),[COMP CODE]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"}>}[COMP CODE]),'#,##0.00')
+Sheet1	Text object	TX416		General	Definition	Text	='$'&num(sum({<$(vHide),UNIT-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),UNIT-={"ALL"}>}UNIT),'#,##0.00')
+Sheet1	Text object	TX378		General	Definition	Text	='$'&num(sum({<$(vHide),UNIT-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),UNIT-={"ALL"}>}UNIT),'#,##0.00')
+Sheet1	Text object	TX232		General	Definition	Text	='$'&num(sum({<$(vHide),UNIT-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),UNIT-={"ALL"}>}UNIT),'#,##0.00')
+Sheet1	Text object	TX449		General	Definition	Text	=%DATE
+&chr(10)&
+chr(36)&num(sum(TOTAL_AMT),'#,##0')&' TOTAL COST'
+&chr(10)&
+if((sum(TOTAL_AMT)/sum({<%Calendar.TempDate=, %Month=>}TOTAL_AMT)
+/
+count(DISTINCT{<%Calendar.TempDate=, %Month=>} if(WildMatch(%DATE_NAME,'MONTH','WEEK'),%Calendar.TempDate,%Month))-1)*100<0,chr(9660),chr(9650))
+&chr(32)&
+num(fabs((sum(TOTAL_AMT)/sum({<%Calendar.TempDate=, %Month=>}TOTAL_AMT)
+/
+count(DISTINCT{<%Calendar.TempDate=, %Month=>} if(WildMatch(%DATE_NAME,'MONTH','WEEK'),%Calendar.TempDate,%Month))-1)*100),'#,##0')&chr(37)
+&chr(32)&
+if((sum(TOTAL_AMT)/sum({<%Calendar.TempDate=, %Month=>}TOTAL_AMT)
+/
+count(DISTINCT{<%Calendar.TempDate=, %Month=>} if(WildMatch(%DATE_NAME,'MONTH','WEEK'),%Calendar.TempDate,%Month))-1)*100<0,'BELOW AVG.','ABOVE AVG.')
+Sheet1	Text object	TX441		General	Definition	Text	=%DATE
+&chr(10)&
+chr(36)&num(sum(TOTAL_AMT),'#,##0')&' TOTAL COST'
+&chr(10)&
+if((sum(TOTAL_AMT)/sum({<%Calendar.TempDate=, %Month=>}TOTAL_AMT)
+/
+count(DISTINCT{<%Calendar.TempDate=, %Month=>} if(WildMatch(%DATE_NAME,'MONTH','WEEK'),%Calendar.TempDate,%Month))-1)*100<0,chr(9660),chr(9650))
+&chr(32)&
+num(fabs((sum(TOTAL_AMT)/sum({<%Calendar.TempDate=, %Month=>}TOTAL_AMT)
+/
+count(DISTINCT{<%Calendar.TempDate=, %Month=>} if(WildMatch(%DATE_NAME,'MONTH','WEEK'),%Calendar.TempDate,%Month))-1)*100),'#,##0')&chr(37)
+&chr(32)&
+if((sum(TOTAL_AMT)/sum({<%Calendar.TempDate=, %Month=>}TOTAL_AMT)
+/
+count(DISTINCT{<%Calendar.TempDate=, %Month=>} if(WildMatch(%DATE_NAME,'MONTH','WEEK'),%Calendar.TempDate,%Month))-1)*100<0,'BELOW AVG.','ABOVE AVG.')
+Sheet1	Text object	TX247		General	Definition	Text	=%DATE
+&chr(10)&
+chr(36)&num(sum(TOTAL_AMT),'#,##0')&' TOTAL COST'
+&chr(10)&
+if((sum(TOTAL_AMT)/sum({<%Calendar.TempDate=, %Month=>}TOTAL_AMT)
+/
+count(DISTINCT{<%Calendar.TempDate=, %Month=>} if(WildMatch(%DATE_NAME,'MONTH','WEEK'),%Calendar.TempDate,%Month))-1)*100<0,chr(9660),chr(9650))
+&chr(32)&
+num(fabs((sum(TOTAL_AMT)/sum({<%Calendar.TempDate=, %Month=>}TOTAL_AMT)
+/
+count(DISTINCT{<%Calendar.TempDate=, %Month=>} if(WildMatch(%DATE_NAME,'MONTH','WEEK'),%Calendar.TempDate,%Month))-1)*100),'#,##0')&chr(37)
+&chr(32)&
+if((sum(TOTAL_AMT)/sum({<%Calendar.TempDate=, %Month=>}TOTAL_AMT)
+/
+count(DISTINCT{<%Calendar.TempDate=, %Month=>} if(WildMatch(%DATE_NAME,'MONTH','WEEK'),%Calendar.TempDate,%Month))-1)*100<0,'BELOW AVG.','ABOVE AVG.')
+Sheet1	Text object	TX204		Actions	Action	Field Select	=(If(vRowsCount<ceil(count(DISTINCT {<%Calendar.TempDate=>} [COMP CODE]),5)  /*GetPossibleCount(COMP_CD)*/  -4,vRowsCount+5,vRowsCount)+4)/5
+Sheet1	Text object	TX370		Actions	Action	Field Select	=(If(vRowsCount<ceil(count(DISTINCT {<%Calendar.TempDate=>} [COMP CODE]),5) /*GetPossibleCount(COMP_CD)*/  -4,vRowsCount+5,vRowsCount)+4)/5 
+Sheet1	Text object	TX409		Actions	Action	Field Select	=(If(vRowsCount<ceil(count(DISTINCT {<%Calendar.TempDate=>} [COMP CODE]),5)
+/*GetPossibleCount(COMP_CD)*/
+-4,vRowsCount+5,vRowsCount)+4)/5 
+Sheet1	Text object	TX369		Actions	Action	Field Select	=(If(vRowsCount>1,vRowsCount-5,vRowsCount)+4)/5
+Sheet1	Text object	TX408		Actions	Action	Field Select	=(If(vRowsCount>1,vRowsCount-5,vRowsCount)+4)/5 
+Sheet1	Text object	TX205		Actions	Action	Field Select	=(If(vRowsCount>1,vRowsCount-5,vRowsCount)+4)/5 
+Sheet1	Text object	TX161		General	Definition	Text	=/*if(GetSelectedCount(DATE_NAME)=0,'MONTH', GetFieldSelections(DATE_NAME))&': '&$(vLabelDate)
+&', '&*/ replace(
+replace(GetCurrentSelections(', '),', DATE_NAME: '&GetFieldSelections(DATE_NAME),'')
+, 'DATE_NAME: '&GetFieldSelections(DATE_NAME),'')
+Sheet1	Text object	TX158		General	Definition	Text	=/*if(GetSelectedCount(DATE_NAME)=0,'MONTH', GetFieldSelections(DATE_NAME))&': '&$(vLabelDate)
+&', '&*/GetCurrentSelections(', ')
+Sheet1	Text object	TX742		Actions	Action	Field Select	='>='&  if(GetSelectedCount(%DATE_NAME)=0 or wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),    MonthStart(AddMonths(max({1}Calendar.DATE),if($(vDateScroll)<0,$(vDateScroll)+1,0)))    	      , if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),     weekStart(max({1}Calendar.DATE)+if($(vDateScroll)<0,$(vDateScroll)+1,0)*7)  		   	  	   	  	, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),  	   	  	makedate(year(AddMonths(max({1}Calendar.DATE),if($(vDateScroll)<0,$(vDateScroll)+1,0)*3)),   	  	Pick(ceil(month(AddMonths(max({1}Calendar.DATE),if($(vDateScroll)<0,$(vDateScroll)+1,0)*3))/3),'1','4','7','10'),1  	)  	  	   	  			   	  			, if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR'),   	  			makedate(Year(max({1}Calendar.DATE))+if($(vDateScroll)<0,$(vDateScroll)+1,0))  	   	  					   	  				, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),  	   	  				date(vStart)  					  )))))   	  				  &'<='&  if(GetSelectedCount(%DATE_NAME)=0 or wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),    	MonthEnd(AddMonths(max({1}Calendar.DATE),if($(vDateScroll)<0,$(vDateScroll)+1,0)))    	  	   , if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),    weekEnd(max({1}Calendar.DATE)+if($(vDateScroll)<0,$(vDateScroll)+1,0)*7)  		   	  	   	  	, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),  	   	  	makedate(year(AddMonths(max({1}Calendar.DATE),if($(vDateScroll)<0,$(vDateScroll)+1,0)*3)),  	   	  	Pick(ceil(month(AddMonths(max({1}Calendar.DATE),if($(vDateScroll)<0,$(vDateScroll)+1,0)*3))/3),'3','6','9','12'),  	   	  	Pick(ceil(month(AddMonths(max({1}Calendar.DATE),if($(vDateScroll)<0,$(vDateScroll)+1,0)*3))/3),'31','30','30','31')  	)     	  			   	  			, if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR'),  			   	  			makedate(Year(max({1}Calendar.DATE))+if($(vDateScroll)<0,$(vDateScroll)+1,0),12,31)  	   	  					   	  					, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),  			   	  					date(vEnd)  					  )))))  //'>='&vStartPeriod&'<='&vEndPeriod   	  					
+Sheet1	Text object	TX739		Actions	Action	Field Select	='>='&  if(GetSelectedCount(%DATE_NAME)=0 or wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),  MonthStart(AddMonths(max({1}Calendar.DATE),if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1)))    	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),  	weekStart(max({1}Calendar.DATE)+if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1)*7)  		  		, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),  		makedate(year(AddMonths(max({1}Calendar.DATE),if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1)*3)),Pick(ceil(month(AddMonths(max({1}Calendar.DATE),if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1)*3))/3),'1','4','7','10'),1  	)  	  			, if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR'),  			makedate(Year(max({1}Calendar.DATE))+if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1))  			  			, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),  			date(vStart)  					  )))))  &'<='&  if(GetSelectedCount(%DATE_NAME)=0 or wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),  MonthEnd(AddMonths(max({1}Calendar.DATE),if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1)))    	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),  	weekEnd(max({1}Calendar.DATE)+if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1)*7)  		  		, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),  		makedate(year(AddMonths(max({1}Calendar.DATE),if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1)*3))  		,Pick(ceil(month(AddMonths(max({1}Calendar.DATE),if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1)*3))/3),'3','6','9','12')  		,Pick(ceil(month(AddMonths(max({1}Calendar.DATE),if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1)*3))/3),'31','30','30','31')  	)  	  			, if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR'),  			makedate(Year(max({1}Calendar.DATE))+if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1),12,31)  			, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),  			date(vEnd)  					  )))))  //'>='&vStartPeriod&'<='&vEndPeriod
+Sheet1	Text object	TX55		Actions	Action	Field Select	='>='&  if(GetSelectedCount(%DATE_NAME)=0 or wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'), 
+ MonthStart(AddMonths(max({1}Calendar.DATE),if($(vDateScroll)<0,$(vDateScroll)+1,0)))    	
+ 
+ , if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),  
+ weekStart(max({1}Calendar.DATE)+if($(vDateScroll)<0,$(vDateScroll)+1,0)*7)  		
+ 	  	
+ 	  	, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),  	
+ 	  	makedate(year(AddMonths(max({1}Calendar.DATE),if($(vDateScroll)<0,$(vDateScroll)+1,0)*3)),
+ 	  	Pick(ceil(month(AddMonths(max({1}Calendar.DATE),if($(vDateScroll)<0,$(vDateScroll)+1,0)*3))/3),'1','4','7','10'),1  	)  	  	
+ 	  			
+ 	  			, if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR'),
+ 	  			makedate(Year(max({1}Calendar.DATE))+if($(vDateScroll)<0,$(vDateScroll)+1,0))  	
+ 	  					
+ 	  				, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),  	
+ 	  				date(vStart)  					  )))))
+ 	  				
+&'<='&  if(GetSelectedCount(%DATE_NAME)=0 or wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),  
+	MonthEnd(AddMonths(max({1}Calendar.DATE),if($(vDateScroll)<0,$(vDateScroll)+1,0)))    	
+	
+ , if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'), 
+ weekEnd(max({1}Calendar.DATE)+if($(vDateScroll)<0,$(vDateScroll)+1,0)*7)  		
+ 	  	
+ 	  	, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),  	
+ 	  	makedate(year(AddMonths(max({1}Calendar.DATE),if($(vDateScroll)<0,$(vDateScroll)+1,0)*3)),  	
+ 	  	Pick(ceil(month(AddMonths(max({1}Calendar.DATE),if($(vDateScroll)<0,$(vDateScroll)+1,0)*3))/3),'3','6','9','12'),  	
+ 	  	Pick(ceil(month(AddMonths(max({1}Calendar.DATE),if($(vDateScroll)<0,$(vDateScroll)+1,0)*3))/3),'31','30','30','31')  	)  
+ 	  			
+ 	  			, if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR'),  			
+ 	  			makedate(Year(max({1}Calendar.DATE))+if($(vDateScroll)<0,$(vDateScroll)+1,0),12,31)  	
+ 	  					
+ 	  					, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),  			
+ 	  					date(vEnd)  					  )))))  //'>='&vStartPeriod&'<='&vEndPeriod
+ 	  					
+Sheet1	Text object	TX56		Actions	Action	Field Select	='>='&
+if(GetSelectedCount(%DATE_NAME)=0 or wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),
+MonthStart(AddMonths(max({1}%DATE),if(vEndPeriod>=min({1}%DATE) and vStartPeriod<=min({1}%DATE),$(vDateScroll),$(vDateScroll)-1)))
+
+	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),
+	weekStart(max({1}%DATE)+if(vEndPeriod>=min({1}%DATE) and vStartPeriod<=min({1}%DATE),$(vDateScroll),$(vDateScroll)-1)*7)
+		
+		, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),
+		makedate(year(AddMonths(max({1}%DATE),if(vEndPeriod>=min({1}%DATE) and vStartPeriod<=min({1}%DATE),$(vDateScroll),$(vDateScroll)-1)*3)),Pick(ceil(month(AddMonths(max({1}%DATE),if(vEndPeriod>=min({1}%DATE) and vStartPeriod<=min({1}%DATE),$(vDateScroll),$(vDateScroll)-1)*3))/3),'1','4','7','10'),1
+	)
+	
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR'),
+			makedate(Year(max({1}%DATE))+if(vEndPeriod>=min({1}%DATE) and vStartPeriod<=min({1}%DATE),$(vDateScroll),$(vDateScroll)-1))
+			
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),
+			date(vStart)
+					
+)))))
+&'<='&
+if(GetSelectedCount(%DATE_NAME)=0 or wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),
+MonthEnd(AddMonths(max({1}%DATE),if(vEndPeriod>=min({1}%DATE) and vStartPeriod<=min({1}%DATE),$(vDateScroll),$(vDateScroll)-1)))
+
+	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),
+	weekEnd(max({1}%DATE)+if(vEndPeriod>=min({1}%DATE) and vStartPeriod<=min({1}%DATE),$(vDateScroll),$(vDateScroll)-1)*7)
+		
+		, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),
+		makedate(year(AddMonths(max({1}%DATE),if(vEndPeriod>=min({1}%DATE) and vStartPeriod<=min({1}%DATE),$(vDateScroll),$(vDateScroll)-1)*3))
+		,Pick(ceil(month(AddMonths(max({1}%DATE),if(vEndPeriod>=min({1}%DATE) and vStartPeriod<=min({1}%DATE),$(vDateScroll),$(vDateScroll)-1)*3))/3),'3','6','9','12')
+		,Pick(ceil(month(AddMonths(max({1}%DATE),if(vEndPeriod>=min({1}%DATE) and vStartPeriod<=min({1}%DATE),$(vDateScroll),$(vDateScroll)-1)*3))/3),'31','30','30','31')
+	)
+	
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR'),
+			makedate(Year(max({1}%DATE))+if(vEndPeriod>=min({1}%DATE) and vStartPeriod<=min({1}%DATE),$(vDateScroll),$(vDateScroll)-1),12,31)
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),
+			date(vEnd)
+					
+)))))
+//'>='&vStartPeriod&'<='&vEndPeriod
+Sheet1	Sheet	SH02	Sheet1	Actions	Action	Field Select	='>='&if(GetSelectedCount(%DATE_NAME)=0 or wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),
+MonthStart(AddMonths(max({1}Calendar.DATE),0))
+
+	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),
+	weekStart(max({1}Calendar.DATE)+0*7)
+		
+		, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),
+		makedate(year(AddMonths(max({1}Calendar.DATE),0*3)),Pick(ceil(month(AddMonths(max({1}Calendar.DATE),0*3))/3),'1','4','7','10'),1
+	)
+	
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'1 YEAR'),
+			makedate(Year(max({1}Calendar.DATE))+0)
+			
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),
+			date(vStart)
+					
+)))))&'<='&
+if(GetSelectedCount(%DATE_NAME)=0 or wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),
+MonthEnd(AddMonths(max({1}Calendar.DATE),0))
+
+	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),
+	weekEnd(max({1}Calendar.DATE)+0)
+		
+		, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),
+		makedate(year(AddMonths(max({1}Calendar.DATE),0))
+		,Pick(ceil(month(AddMonths(max({1}Calendar.DATE),0))/3),'3','6','9','12')
+		,Pick(ceil(month(AddMonths(max({1}Calendar.DATE),0*3))/3),'31','30','30','31')
+	)
+	
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'1 YEAR'),
+			makedate(Year(max({1}Calendar.DATE))+0,12,31)
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),
+			date(vEnd)
+					
+)))))
+Sheet1	Text object	TX775		Actions	Action	Field Select	='ALL'
+Sheet1	Text object	TX729		General	Definition	Text	=GetCurrentSelections(', ')
+Sheet1	Text object	TX165		General	Definition	Text	=GetCurrentSelections(', ')
+Sheet1	Text object	TX116		General	Definition	Text	=GetFieldSelections(GROUP)
+Sheet1	Text object	TX789		General	Definition	Text	=GetPossibleCount(%ColName)-1
+Sheet1	Listbox	LB32	(unavailable)[5]	General	Definition	Field	=if( %TablePageNum<=$(=ceil(count(DISTINCT {<%Calendar.TempDate=>} [COMP CODE])/5)),%TablePageNum)
+//ceil(count(DISTINCT {<%Calendar.TempDate=>} COMP_CD)/8)
+//ceil((GetPossibleCount( COMP_CD))/8)
+Sheet1	Listbox	LB30	(unavailable)[5]	General	Definition	Field	=if( %TablePageNum<=$(=ceil(count(DISTINCT {<%Calendar.TempDate=>} [COMP CODE])/5)),%TablePageNum)
+//ceil(count(DISTINCT {<%Calendar.TempDate=>} COMP_CD)/8)
+//ceil((GetPossibleCount( COMP_CD))/8)
+Sheet1	Listbox	LB15	(unavailable)[5]	General	Definition	Field	=if( %TablePageNum<=$(=ceil(count(DISTINCT {<%Calendar.TempDate=>} [COMP CODE])/5)),%TablePageNum)
+//ceil(count(DISTINCT {<%Calendar.TempDate=>} COMP_CD)/8)
+//ceil((GetPossibleCount( COMP_CD))/8)
+Sheet1	Text object	TX742		Actions	Action	Set Value	=if($(vDateScroll)<0,$(vDateScroll)+1,0)
+Sheet1	Text object	TX55		Actions	Action	Set Value	=if($(vDateScroll)<0,$(vDateScroll)+1,0)
+Sheet1	Text object	TX739		Actions	Action	Set Value	=if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1)
+Sheet1	Text object	TX752		Actions	Action	Set Value	=If(( vColumnsCount<GetPossibleCount(%ColName)-1 and isnull(GetFieldSelections(%ColName)))    or    (vColumnsCount<GetPossibleCount(%ColName) and not isnull(GetFieldSelections(%ColName))),vColumnsCount+1,vColumnsCount)
+Sheet1	Text object	TX745		Actions	Action	Set Value	=If(( vColumnsCount<GetPossibleCount(%ColName)-1 and isnull(GetFieldSelections(%ColName)))    or    (vColumnsCount<GetPossibleCount(%ColName) and not isnull(GetFieldSelections(%ColName))),vColumnsCount+1,vColumnsCount)
+Sheet1	Text object	TX749		Actions	Action	Set Value	=If(( vColumnsCount<GetPossibleCount(%ColName)-1 and isnull(GetFieldSelections(%ColName)))
+
+or 
+ (vColumnsCount<GetPossibleCount(%ColName) and not isnull(GetFieldSelections(%ColName))),vColumnsCount+1,vColumnsCount)
+Sheet1	Text object	TX422		General	Definition	Text	=if(((sum({<$(vHide),[COMP CODE]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"}>}[COMP CODE]))
+/
+(sum({<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}TOTAL_AMT)
+/ count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}[COMP CODE]))
+-1
+)*100
+<0,chr(9660),chr(9650))
+&chr(32)&
+num(
+fabs(
+((sum({<$(vHide),[COMP CODE]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"}>}[COMP CODE]))
+/
+
+(sum({<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}TOTAL_AMT)
+/ count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}[COMP CODE]))
+-1
+)*100)
+,'#,##0')&chr(37)&' than previous '&if(GetSelectedCount(%DATE_NAME)=0,
+'month',
+if(wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),
+'month'	
+	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),
+	'week'		
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),
+			'quarter'
+				, if(wildmatch(GetFieldSelections(%DATE_NAME),'*YEAR'),
+				'year'
+					, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),
+					'custom'
+				
+))))))
+
+
+*******************************************************************************************************************************************************************
+=    (sum({<$(vHide),[COMP CODE]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"}>}[COMP CODE]))
+
+set vAMTtoCODE='
+	=(sum($(=vEvalCrMnt&' TOTAL_AMT'))
+		/count(DISTINCT $(=vEvalCrMnt&' [COMP CODE]')))
+	/
+	(sum($(=vEvalPrMnt&' TOTAL_AMT'))
+		/count(DISTINCT $(=vEvalPrMnt&' [COMP CODE]')))
+	-1
+'
+**************
+vEvalPrMnt=
+{<
+MonthID = {$(=Max(MonthID-1))}, 
+MonthYear= ,
+Year = ,
+Quarter = ,
+Month = ,
+[COMP CODE]-={"ALL"}
+>}
+
+**************
+TX412 = if(
+	$(vAMTtoCODE)*100<0,
+	chr(9660),
+	chr(9650)
+)
+&chr(32)&
+num(fabs(
+	$(vAMTtoCODE)*100)	
+,'#,##0')
+&chr(37)&' than previous '
+
+**************
+
+*******************************************************************************************************************************************************************
+Sheet1	Text object	TX412		General	Definition	Text	
+=if(((sum({<$(vHide),[COMP CODE]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"}>}[COMP CODE]))
+/
+(sum({<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}TOTAL_AMT)
+/ count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}[COMP CODE]))
+-1
+)*100
+<0,chr(9660),chr(9650))
+&chr(32)&
+num(
+fabs(
+((sum({<$(vHide),[COMP CODE]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"}>}[COMP CODE]))
+/
+(sum({<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}TOTAL_AMT)
+/ count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}[COMP CODE]))
+-1
+)*100)
+,'#,##0')&chr(37)&' than previous '&if(GetSelectedCount(%DATE_NAME)=0,
+'month',
+if(wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),
+'month'	
+	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),
+	'week'		
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),
+			'quarter'
+				, if(wildmatch(GetFieldSelections(%DATE_NAME),'*YEAR'),
+				'year'
+					, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),
+					'custom'
+				
+))))))
+
+*******************************************************************************************************************************************************************
+
+Sheet1	Text object	TX382		General	Definition	Text	=if(((sum({<$(vHide),[COMP CODE]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"}>}[COMP CODE]))
+/
+(sum({<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}TOTAL_AMT)
+/ count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}[COMP CODE]))
+-1
+)*100
+<0,chr(9660),chr(9650))
+&chr(32)&
+num(
+fabs(
+((sum({<$(vHide),[COMP CODE]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"}>}[COMP CODE]))
+/
+
+(sum({<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}TOTAL_AMT)
+/ count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}[COMP CODE]))
+-1
+)*100)
+,'#,##0')&chr(37)&' than previous '&if(GetSelectedCount(%DATE_NAME)=0,
+'month',
+if(wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),
+'month'	
+	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),
+	'week'		
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),
+			'quarter'
+				, if(wildmatch(GetFieldSelections(%DATE_NAME),'*YEAR'),
+				'year'
+					, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),
+					'custom'
+				
+))))))
+Sheet1	Text object	TX373		General	Definition	Text	=if(((sum({<$(vHide),[COMP CODE]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"}>}[COMP CODE]))
+/
+(sum({<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}TOTAL_AMT)
+/ count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}[COMP CODE]))
+-1
+)*100
+<0,chr(9660),chr(9650))
+&chr(32)&
+num(
+fabs(
+((sum({<$(vHide),[COMP CODE]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"}>}[COMP CODE]))
+/
+
+(sum({<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}TOTAL_AMT)
+/ count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}[COMP CODE]))
+-1
+)*100)
+,'#,##0')&chr(37)&' than previous '&if(GetSelectedCount(%DATE_NAME)=0,
+'month',
+if(wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),
+'month'	
+	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),
+	'week'		
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),
+			'quarter'
+				, if(wildmatch(GetFieldSelections(%DATE_NAME),'*YEAR'),
+				'year'
+					, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),
+					'custom'
+				
+))))))
+Sheet1	Text object	TX244		General	Definition	Text	=if(((sum({<$(vHide),[COMP CODE]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"}>}[COMP CODE]))
+/
+(sum({<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}TOTAL_AMT)
+/ count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}[COMP CODE]))
+-1
+)*100
+<0,chr(9660),chr(9650))
+&chr(32)&
+num(
+fabs(
+((sum({<$(vHide),[COMP CODE]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"}>}[COMP CODE]))
+/
+
+(sum({<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}TOTAL_AMT)
+/ count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}[COMP CODE]))
+-1
+)*100)
+,'#,##0')&chr(37)&' than previous '&if(GetSelectedCount(%DATE_NAME)=0,
+'month',
+if(wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),
+'month'	
+	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),
+	'week'		
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),
+			'quarter'
+				, if(wildmatch(GetFieldSelections(%DATE_NAME),'*YEAR'),
+				'year'
+					, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),
+					'custom'
+				
+))))))
+Sheet1	Text object	TX237		General	Definition	Text	=if(((sum({<$(vHide),[COMP CODE]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"}>}[COMP CODE]))
+/
+(sum({<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}TOTAL_AMT)
+/ count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}[COMP CODE]))
+-1
+)*100
+<0,chr(9660),chr(9650))
+&chr(32)&
+num(
+fabs(
+((sum({<$(vHide),[COMP CODE]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"}>}[COMP CODE]))
+/
+
+(sum({<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}TOTAL_AMT)
+/ count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}[COMP CODE]))
+-1
+)*100)
+,'#,##0')&chr(37)&' than previous '&if(GetSelectedCount(%DATE_NAME)=0,
+'month',
+if(wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),
+'month'	
+	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),
+	'week'		
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),
+			'quarter'
+				, if(wildmatch(GetFieldSelections(%DATE_NAME),'*YEAR'),
+				'year'
+					, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),
+					'custom'
+				
+))))))
+Sheet1	Text object	TX417		General	Definition	Text	=if(((sum({<$(vHide),UNIT-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),UNIT-={"ALL"}>}UNIT))
+/
+(sum({<$(vHide),UNIT-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}TOTAL_AMT)
+/ count(DISTINCT{<$(vHide),UNIT-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}UNIT))
+-1
+)*100
+<0,chr(9660),chr(9650))
+&chr(32)&
+num(
+fabs(
+((sum({<$(vHide),UNIT]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),UNIT-={"ALL"}>}UNIT))
+/
+
+(sum({<$(vHide),UNIT-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}TOTAL_AMT)
+/ count(DISTINCT{<$(vHide),UNIT-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}UNIT))
+-1
+)*100)
+,'#,##0')&chr(37)&' than previous '&if(GetSelectedCount(%DATE_NAME)=0,
+'month',
+if(wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),
+'month'	
+	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),
+	'week'		
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),
+			'quarter'
+				, if(wildmatch(GetFieldSelections(%DATE_NAME),'*YEAR'),
+				'year'
+					, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),
+					'custom'
+				
+))))))
+Sheet1	Text object	TX379		General	Definition	Text	=if(((sum({<$(vHide),UNIT-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),UNIT-={"ALL"}>}UNIT))
+/
+(sum({<$(vHide),UNIT-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}TOTAL_AMT)
+/ count(DISTINCT{<$(vHide),UNIT-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}UNIT))
+-1
+)*100
+<0,chr(9660),chr(9650))
+&chr(32)&
+num(
+fabs(
+((sum({<$(vHide),UNIT]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),UNIT-={"ALL"}>}UNIT))
+/
+
+(sum({<$(vHide),UNIT-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}TOTAL_AMT)
+/ count(DISTINCT{<$(vHide),UNIT-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}UNIT))
+-1
+)*100)
+,'#,##0')&chr(37)&' than previous '&if(GetSelectedCount(%DATE_NAME)=0,
+'month',
+if(wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),
+'month'	
+	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),
+	'week'		
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),
+			'quarter'
+				, if(wildmatch(GetFieldSelections(%DATE_NAME),'*YEAR'),
+				'year'
+					, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),
+					'custom'
+				
+))))))
+Sheet1	Text object	TX235		General	Definition	Text	=if(((sum({<$(vHide),UNIT-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),UNIT-={"ALL"}>}UNIT))
+/
+(sum({<$(vHide),UNIT-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}TOTAL_AMT)
+/ count(DISTINCT{<$(vHide),UNIT-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}UNIT))
+-1
+)*100
+<0,chr(9660),chr(9650))
+&chr(32)&
+num(
+fabs(
+((sum({<$(vHide),UNIT]-={"ALL"}>}TOTAL_AMT)
+/count(DISTINCT{<$(vHide),UNIT-={"ALL"}>}UNIT))
+/
+
+(sum({<$(vHide),UNIT-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}TOTAL_AMT)
+/ count(DISTINCT{<$(vHide),UNIT-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}UNIT))
+-1
+)*100)
+,'#,##0')&chr(37)&' than previous '&if(GetSelectedCount(%DATE_NAME)=0,
+'month',
+if(wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),
+'month'	
+	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),
+	'week'		
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),
+			'quarter'
+				, if(wildmatch(GetFieldSelections(%DATE_NAME),'*YEAR'),
+				'year'
+					, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),
+					'custom'
+				
+))))))
+Sheet1	Text object	TX407		General	Definition	Text	=if(GetSelectedCount(%ColName)=0  or GetPossibleCount(%ColName)=8, 'ALL', 
+FieldValueCount('%ColName') - GetPossibleCount(%ColName)-1&' HIDDEN')
+Sheet1	Text object	TX361		General	Definition	Text	=if(GetSelectedCount(%ColName)=0  or GetPossibleCount(%ColName)=8, 'ALL', 
+FieldValueCount('%ColName') - GetPossibleCount(%ColName)-1&' HIDDEN')
+Sheet1	Text object	TX197		General	Definition	Text	=if(GetSelectedCount(%ColName)=0  or GetPossibleCount(%ColName)=8, 'ALL', 
+FieldValueCount('%ColName') - GetPossibleCount(%ColName)-1&' HIDDEN')
+Sheet1	Text object	TX124		Actions	Action	Field Select	=if(GetSelectedCount(GROUP,'','GROUP')<>1,'',GetFieldSelections(GROUP,'','','GROUP'))
+Sheet1	Text object	TX124		Actions	Action	Set Value	=if(GetSelectedCount(GROUP,'','GROUP')<>1,0, 1)
+Sheet1	Text object	TX124		Actions	Action	Set Value	=if(GetSelectedCount(GROUP,'','GROUP')<>1,1, 0)
+Sheet1	Listbox	LB05	(unavailable)[-]	General	Definition	Field	=if(GROUP<>'ALL',GROUP)
+Sheet1	Text object	TX177		Actions	Action	Set Value	=if(vBookmarkList='',vBookmarkName,vBookmarkList&','&vBookmarkName)
+Sheet1	Text object	TX168		Actions	Action	Set Value	=if(vBookmarkList='',vBookmarkName,vBookmarkList&','&vBookmarkName)
+Sheet1	Text object	TX58		Actions	Action	Set Value	=if(vBookmarkListApply='NONE',0,1)
+Sheet1	Text object	TX58		Actions	Action	Set Value	=if(vBookmarkListApply='NONE',1,0)
+Sheet1	Text object	TX407		Actions	Action	Set Value	=If(vColumnList=0,1,0)
+Sheet1	Text object	TX406		Actions	Action	Set Value	=If(vColumnList=0,1,0)
+Sheet1	Text object	TX368		Actions	Action	Set Value	=If(vColumnList=0,1,0)
+Sheet1	Text object	TX361		Actions	Action	Set Value	=If(vColumnList=0,1,0)
+Sheet1	Text object	TX198		Actions	Action	Set Value	=If(vColumnList=0,1,0)
+Sheet1	Text object	TX197		Actions	Action	Set Value	=If(vColumnList=0,1,0)
+Sheet1	Text object	TX754		Actions	Action	Set Value	=If(vColumnsCount>4,vColumnsCount-1,vColumnsCount)
+Sheet1	Text object	TX750		Actions	Action	Set Value	=If(vColumnsCount>4,vColumnsCount-1,vColumnsCount)
+Sheet1	Text object	TX746		Actions	Action	Set Value	=If(vColumnsCount>4,vColumnsCount-1,vColumnsCount)
+Sheet1	Text object	TX56		Actions	Action	Set Value	=if(vEndPeriod>=min({1}%DATE) and vStartPeriod<=min({1}%DATE),$(vDateScroll),$(vDateScroll)-1)
+Sheet1	Text object	TX399		Actions	Action	Set Value	=If(vPageList=0,1,0)
+Sheet1	Text object	TX394		Actions	Action	Set Value	=If(vPageList=0,1,0)
+Sheet1	Text object	TX360		Actions	Action	Set Value	=If(vPageList=0,1,0)
+Sheet1	Text object	TX355		Actions	Action	Set Value	=If(vPageList=0,1,0)
+Sheet1	Text object	TX215		Actions	Action	Set Value	=If(vPageList=0,1,0)
+Sheet1	Text object	TX214		Actions	Action	Set Value	=If(vPageList=0,1,0)
+Sheet1	Text object	TX409		Actions	Action	Set Value	=If(vRowsCount<ceil(count(DISTINCT {<%Calendar.TempDate=>} [COMP CODE]),5)
+/*GetPossibleCount(COMP_CD)*/
+-4,vRowsCount+5,vRowsCount)
+Sheet1	Text object	TX370		Actions	Action	Set Value	=If(vRowsCount<ceil(count(DISTINCT {<%Calendar.TempDate=>} [COMP CODE]),5)
+/*GetPossibleCount(COMP_CD)*/
+-4,vRowsCount+5,vRowsCount)
+Sheet1	Text object	TX204		Actions	Action	Set Value	=If(vRowsCount<ceil(count(DISTINCT {<%Calendar.TempDate=>} [COMP CODE]),5)
+/*GetPossibleCount(COMP_CD)*/
+-4,vRowsCount+5,vRowsCount)
+Sheet1	Text object	TX408		Actions	Action	Set Value	=If(vRowsCount>1,vRowsCount-5,vRowsCount)
+Sheet1	Text object	TX369		Actions	Action	Set Value	=If(vRowsCount>1,vRowsCount-5,vRowsCount)
+Sheet1	Text object	TX205		Actions	Action	Set Value	=If(vRowsCount>1,vRowsCount-5,vRowsCount)
+Sheet1	Text object	TX722		Actions	Action	Macro	=if(WildMatch(GetFieldSelections(%DOWNLOAD),'Excel(.xls)'),'EXPORT_EXCEL',
+if(WildMatch(GetFieldSelections(%DOWNLOAD),'CSV'),'EXPORT_CSV'
+))
+Sheet1	Text object	TX722		Actions	Action	Macro	=if(WildMatch(GetFieldSelections(%DOWNLOAD),'Excel(.xls), CSV'),'EXPORT_CSV')
+Sheet1	Text object	TX722		Actions	Action	Macro	=if(WildMatch(GetFieldSelections(%DOWNLOAD),'Excel(.xls), CSV'),'EXPORT_EXCEL')
+Sheet1	Text object	TX177		Actions	Action		='INSERT INTO * (Bookmarks) VALUES (' & chr(39) & if(vBookmarkList='',vBookmarkName,vBookmarkList&','&vBookmarkName) & chr(39) & ')'
+Sheet1	Text object	TX168		Actions	Action		='INSERT INTO * (Bookmarks) VALUES (' & chr(39) & if(vBookmarkList='',vBookmarkName,vBookmarkList&','&vBookmarkName) & chr(39) & ')'
+Sheet1	Text object	TX157		Actions	Action		='INSERT INTO * (Bookmarks) VALUES (' & chr(39) & if(vBookmarkList='',vBookmarkName,vBookmarkList&','&vBookmarkName) & chr(39) & ')'
+Sheet1	Text object	TX401		General	Definition	Text	='Last updated '& date(ReloadTime())&', '&time(ReloadTime())
+Sheet1	Text object	TX362		General	Definition	Text	='Last updated '& date(ReloadTime())&', '&time(ReloadTime())
+Sheet1	Text object	TX301		General	Definition	Text	='Last updated '& date(ReloadTime())&', '&time(ReloadTime())
+Sheet1	Calendar	SL03		General	Definition	Max	=max({1}Calendar.DATE)
+Sheet1	Calendar	SL02		General	Definition	Max	=max({1}Calendar.DATE)
+Sheet1	Calendar	SL03		General	Definition	Min	=min({1}Calendar.DATE)
+Sheet1	Calendar	SL02		General	Definition	Min	=min({1}Calendar.DATE)
+Sheet1	Text object	TX249		General	Definition	Text	='Showing '&
+count(DISTINCT {<%Calendar.TempDate=, UNIT-={'ALL'}>} [UNIT])&' Units of '
+&'Total Fleet'
+Sheet1	Text object	TX693		General	Definition	Text	='Showing '&
+count(DISTINCT {<%Calendar.TempDate=,UNIT-={'ALL'}>} [UNIT])&' Units of '
+&'Total Fleet'
+Sheet1	Text object	TX404		General	Definition	Text	='Showing '&
+count(DISTINCT {<%Calendar.TempDate=,UNIT-={'ALL'}>} [UNIT])&' Units of '
+&'Total Fleet'
+Sheet1	Text object	TX170		General	Definition	Text	=vBookmarkListApply
+Sheet1	Text object	TX406		General	Definition	Text	▼	Text	Unchecked		0	False
+Sheet1	Text object	TX394		General	Definition	Text	▼	Text	Unchecked		0	False
+Sheet1	Text object	TX368		General	Definition	Text	▼	Text	Unchecked		0	False
+Sheet1	Text object	TX355		General	Definition	Text	▼	Text	Unchecked		0	False
+Sheet1	Text object	TX215		General	Definition	Text	▼	Text	Unchecked		0	False
+Sheet1	Text object	TX198		General	Definition	Text	▼	Text	Unchecked		0	False
+Sheet1	Text object	TX97		Actions	Action	Set Value	0
+Sheet1	Text object	TX97		Actions	Action	Set Value	0
+Sheet1	Text object	TX97		Actions	Action	Set Value	0
+Sheet1	Text object	TX88		Actions	Action	Set Value	0
+Sheet1	Text object	TX88		Actions	Action	Set Value	0
+Sheet1	Text object	TX88		Actions	Action	Set Value	0
+Sheet1	Text object	TX86		Actions	Action	Set Value	0
+Sheet1	Text object	TX86		Actions	Action	Set Value	0
+Sheet1	Text object	TX84		Actions	Action	Set Value	0
+Sheet1	Text object	TX84		Actions	Action	Set Value	0
+Sheet1	Text object	TX775		Actions	Action	Set Value	0
+Sheet1	Text object	TX766		Actions	Action	Set Value	0
+Sheet1	Text object	TX765		Actions	Action	Set Value	0
+Sheet1	Text object	TX762		Actions	Action	Set Value	0
+Sheet1	Text object	TX760		Actions	Action	Set Value	0
+Sheet1	Text object	TX76		Actions	Action	Set Value	0
+Sheet1	Text object	TX76		Actions	Action	Set Value	0
+Sheet1	Text object	TX76		Actions	Action	Set Value	0
+Sheet1	Text object	TX759		Actions	Action	Set Value	0
+Sheet1	Text object	TX758		Actions	Action	Set Value	0
+Sheet1	Text object	TX74		Actions	Action	Set Value	0
+Sheet1	Text object	TX74		Actions	Action	Set Value	0
+Sheet1	Text object	TX722		Actions	Action	Set Value	0
+Sheet1	Text object	TX721		Actions	Action	Set Value	0
+Sheet1	Text object	TX72		Actions	Action	Set Value	0
+Sheet1	Text object	TX72		Actions	Action	Set Value	0
+Sheet1	Text object	TX719		Actions	Action	Set Value	0
+Sheet1	Text object	TX70		Actions	Action	Set Value	0
+Sheet1	Text object	TX70		Actions	Action	Set Value	0
+Sheet1	Text object	TX59		Actions	Action	Set Value	0
+Sheet1	Text object	TX449		Actions	Action	Set Value	0
+Sheet1	Text object	TX441		Actions	Action	Set Value	0
+Sheet1	Text object	TX298		Actions	Action	Set Value	0
+Sheet1	Text object	TX247		Actions	Action	Set Value	0
+Sheet1	Text object	TX188		Actions	Action	Set Value	0
+Sheet1	Text object	TX187		Actions	Action	Set Value	0
+Sheet1	Text object	TX186		Actions	Action	Set Value	0
+Sheet1	Text object	TX177		Actions	Action	Set Value	0
+Sheet1	Text object	TX176		Actions	Action	Set Value	0
+Sheet1	Text object	TX168		Actions	Action	Set Value	0
+Sheet1	Text object	TX167		Actions	Action	Set Value	0
+Sheet1	Text object	TX157		Actions	Action	Set Value	0
+Sheet1	Text object	TX155		Actions	Action	Set Value	0
+Sheet1	Text object	TX155		Actions	Action	Set Value	0
+Sheet1	Text object	TX152		Actions	Action	Set Value	0
+Sheet1	Text object	TX152		Actions	Action	Set Value	0
+Sheet1	Text object	TX151		Actions	Action	Set Value	0
+Sheet1	Text object	TX138		Actions	Action	Set Value	0
+Sheet1	Text object	TX127		Actions	Action	Set Value	0
+Sheet1	Text object	TX127		Actions	Action	Set Value	0
+Sheet1	Text object	TX125		Actions	Action	Set Value	0
+Sheet1	Text object	TX125		Actions	Action	Set Value	0
+Sheet1	Text object	TX120		Actions	Action	Set Value	0
+Sheet1	Sheet	SH02	Sheet1	Actions	Action	Set Value	0
+Sheet1	Sheet	SH02	Sheet1	Actions	Action	Set Value	0
+Sheet1	Text object	TX86		Actions	Action	Set Value	1
+Sheet1	Text object	TX84		Actions	Action	Set Value	1
+Sheet1	Text object	TX775		Actions	Action	Field Select	1
+Sheet1	Text object	TX766		Actions	Action	Set Value	1
+Sheet1	Text object	TX765		Actions	Action	Set Value	1
+Sheet1	Text object	TX762		Actions	Action	Set Value	1
+Sheet1	Text object	TX760		Actions	Action	Set Value	1
+Sheet1	Text object	TX759		Actions	Action	Set Value	1
+Sheet1	Text object	TX758		Actions	Action	Set Value	1
+Sheet1	Text object	TX74		Actions	Action	Set Value	1
+Sheet1	Text object	TX72		Actions	Action	Set Value	1
+Sheet1	Text object	TX70		Actions	Action	Set Value	1
+Sheet1	Text object	TX61		Actions	Action	Set Value	1
+Sheet1	Text object	TX57		Actions	Action	Set Value	1
+Sheet1	Text object	TX298		Actions	Action	Set Value	1
+Sheet1	Text object	TX184		Actions	Action	Set Value	1
+Sheet1	Text object	TX172		Actions	Action	Set Value	1
+Sheet1	Calendar	SL03		General	Definition	Step	1
+Sheet1	Calendar	SL02		General	Definition	Step	1
+Sheet1	Sheet	SH02	Sheet1	Actions	Action	Field Select	1
+Sheet1	Text object	TX89		General	Definition	Text	ACCIDENT	Field	Unchecked		0	False
+Sheet1	Text object	TX92		General	Definition	Text	ACTIVE FLAG	Field	Unchecked		0	False
+Sheet1	Text object	TX728		General	Definition	Text	Applied Filters:	Text	Unchecked		0	False
+Sheet1	Text object	TX144		General	Definition	Text	AREA	Field	Unchecked		0	False
+Sheet1	Text object	TX424		General	Definition	Text	AVERAGE COMPONENT COST	Text	Unchecked		0	False
+Sheet1	Text object	TX384		General	Definition	Text	AVERAGE COMPONENT COST	Text	Unchecked		0	False
+Sheet1	Text object	TX220		General	Definition	Text	AVERAGE COMPONENT COST	Text	Unchecked		0	False
+Sheet1	Text object	TX425		General	Definition	Text	AVERAGE REPAIR FREQUENCY	Text	Unchecked		0	False
+Sheet1	Text object	TX374		General	Definition	Text	AVERAGE REPAIR FREQUENCY	Text	Unchecked		0	False
+Sheet1	Text object	TX222		General	Definition	Text	AVERAGE REPAIR FREQUENCY	Text	Unchecked		0	False
+Sheet1	Text object	TX415		General	Definition	Text	AVERAGE UNIT COST	Text	Unchecked		0	False
+Sheet1	Text object	TX377		General	Definition	Text	AVERAGE UNIT COST	Text	Unchecked		0	False
+Sheet1	Text object	TX221		General	Definition	Text	AVERAGE UNIT COST	Text	Unchecked		0	False
+Sheet1	Text object	TX79		General	Definition	Text	BILL GROUP	Field	Unchecked		0	False
+Sheet1	Text object	TX721		General	Definition	Text	CANCEL	Text	Unchecked		0	False
+Sheet1	Text object	TX167		General	Definition	Text	CANCEL	Text	Unchecked		0	False
+Sheet1	Text object	TX155		General	Definition	Text	CANCEL	Text	Unchecked		0	False
+Sheet1	Text object	TX125		General	Definition	Text	CANCEL	Text	Unchecked		0	False
+Sheet1	Text object	TX93		General	Definition	Text	CATEGORY	Field	Unchecked		0	False
+Sheet1	Text object	TX775		Actions	Action	Select Excluded	COMP_CD	Text	Unchecked		0	False
+Sheet1	Text object	TX775		Actions	Action	Field Select	COMP_CD	Text	Unchecked		0	False
+Sheet1	Text object	TX99		General	Definition	Text	COMPANY	Field	Unchecked		0	False
+Sheet1	Text object	TX80		General	Definition	Text	COMPANY	Field	Unchecked		0	False
+Sheet1	Text object	TX104		General	Definition	Text	COMPANY	Field	Unchecked		0	False
+Sheet1	Text object	TX103		General	Definition	Text	COMPANY	Field	Unchecked		0	False
+Sheet1	Text object	TX102		General	Definition	Text	COMPANY	Field	Unchecked		0	False
+Sheet1	Text object	TX101		General	Definition	Text	COMPANY	Field	Unchecked		0	False
+Sheet1	Text object	TX90		General	Definition	Text	CONTRACT	Field	Unchecked		0	False
+Sheet1	Text object	TX91		General	Definition	Text	CONTRACT TYPE	Field	Unchecked		0	False
+Sheet1	Text object	TX53		General	Definition	Text	Cost by Component	Text	Unchecked		0	False
+Sheet1	Text object	TX169		General	Definition	Text	Create new saved filters set	Text	Unchecked		0	False
+Sheet1	Text object	TX177		Actions	Action	Macro	CreateBM	Text	Unchecked		0	False
+Sheet1	Text object	TX168		Actions	Action	Macro	CreateBM	Text	Unchecked		0	False
+Sheet1	Text object	TX82		General	Definition	Text	CUSTOMER NO.	Field	Unchecked		0	False
+Sheet1	Text object	TX730		General	Definition	Text	Date Range:	Text	Unchecked		0	False
+Sheet1	Text object	TX177		Actions	Action		DELETE FROM BookmarkListSaved where 1 = 1	Text	Unchecked		0	False
+Sheet1	Text object	TX168		Actions	Action		DELETE FROM BookmarkListSaved where 1 = 1	Text	Unchecked		0	False
+Sheet1	Text object	TX157		Actions	Action		DELETE FROM BookmarkListSaved where 1 = 1	Text	Unchecked		0	False
+Sheet1	Text object	TX83		General	Definition	Text	DISTRICT	Field	Unchecked		0	False
+Sheet1	Text object	TX722		General	Definition	Text	DOWNLOAD	Text	Unchecked		0	False
+Sheet1	Text object	TX184		General	Definition	Text	DOWNLOAD...	Text	Unchecked		0	False
+Sheet1	Text object	TX163		General	Definition	Text	Enter a name below to create a new Saved Filters Set with the currently applied filters	Text	Unchecked		0	False
+Sheet1	Search Object	SO02		Presentation	Definition	Label	Enter Penske or My Unit No.	Text	Unchecked		0	False
+Sheet1	Text object	TX57		General	Definition	Text	FILTERS	Text	Unchecked		0	False
+Sheet1	Text object	TX186		General	Definition	Text	FILTERS	Text	Unchecked		0	False
+Sheet1	Text object	TX723		General	Definition	Text	FORMAT(S):
+Sheet1	Text object	TX134		General	Definition	Text	From	Text	Unchecked		0	False
+Sheet1	Text object	TX400		General	Definition	Text	GO TO PAGE	Text	Unchecked		0	False
+Sheet1	Text object	TX363		General	Definition	Text	GO TO PAGE	Text	Unchecked		0	False
+Sheet1	Text object	TX206		General	Definition	Text	GO TO PAGE	Text	Unchecked		0	False
+Sheet1	Text object	TX127		Actions	Action	Eov	GROUP	Field	Unchecked		0	False
+Sheet1	Text object	TX125		Actions	Action	Eov	GROUP	Field	Unchecked		0	False
+Sheet1	Text object	TX124		Actions	Action	Field Select	GROUP	Field	Unchecked		0	False
+Sheet1	Text object	TX120		Actions	Action	Eov	GROUP	Field	Unchecked		0	False
+Sheet1	Text object	TX120		Actions	Action	Eov	GROUP	Field	Unchecked		0	False
+Sheet1	Text object	TX77		General	Definition	Text	LOCATION	Field	Unchecked		0	False
+Sheet1	Text object	TX726		General	Definition	Text	Maintenance: Cost by Component	Text	Unchecked		0	False
+Sheet1	Text object	TX107		General	Definition	Text	MAKE	Field	Unchecked		0	False
+Sheet1	Text object	TX108		General	Definition	Text	MODEL	Field	Unchecked		0	False
+Sheet1	Text object	TX735		General	Definition	Text	MY GROUPS	Text	Unchecked		0	False
+Sheet1	Text object	TX409		General	Definition	Text	NEXT    >
+Sheet1	Text object	TX370		General	Definition	Text	NEXT    >
+Sheet1	Text object	TX204		General	Definition	Text	NEXT    >
+Sheet1	Text object	TX775		Actions	Action	Set Value	NONE	Text	Unchecked		0	False
+Sheet1	Text object	TX71		General	Definition	Text	PENSKE GROUP FILTERS	Text	Unchecked		0	False
+Sheet1	Text object	TX139		General	Definition	Text	Please select whether you would like to create a new Saved Filters Set with the currently applied filters or update the existing one	Text	Unchecked		0	False
+Sheet1	Text object	TX81		General	Definition	Text	REGION	Field	Unchecked		0	False
+Sheet1	Text object	TX157		Actions	Action	Macro	ReplaceBM	Text	Unchecked		0	False
+Sheet1	Text object	TX87		General	Definition	Text	REPORT SPECIFIC FILTERS	Text	Unchecked		0	False
+Sheet1	Text object	TX75		General	Definition	Text	REPORT SPECIFIC FILTERS	Text	Unchecked		0	False
+Sheet1	Text object	TX177		General	Definition	Text	SAVE	Text	Unchecked		0	False
+Sheet1	Text object	TX168		General	Definition	Text	SAVE	Text	Unchecked		0	False
+Sheet1	Text object	TX157		General	Definition	Text	SAVE	Text	Unchecked		0	False
+Sheet1	Text object	TX175		General	Definition	Text	Save changes in applied filters	Text	Unchecked		0	False
+Sheet1	Text object	TX58		General	Definition	Text	SAVE FILTERS	Text	Unchecked		0	False
+Sheet1	Text object	TX124		General	Definition	Text	SELECT	Text	Unchecked		0	False
+Sheet1	Text object	TX61		General	Definition	Text	Select Group	Text	Unchecked		0	False
+Sheet1	Sheet	SH03	Sheet1	General	Frame	Title	Sheet1
+Sheet1	Sheet	SH02	Sheet1	General	Frame	Title	Sheet1
+Sheet1	Text object	TX405		General	Definition	Text	SHOW COLUMNS 	Text	Unchecked		0	False
+Sheet1	Text object	TX367		General	Definition	Text	SHOW COLUMNS 	Text	Unchecked		0	False
+Sheet1	Text object	TX190		General	Definition	Text	SHOW COLUMNS 	Text	Unchecked		0	False
+Sheet1	Text object	TX109		General	Definition	Text	To	Text	Unchecked		0	False
+Sheet1	Text object	TX426		General	Definition	Text	TOP COST DRIVERS	Text	Unchecked		0	False
+Sheet1	Text object	TX386		General	Definition	Text	TOP COST DRIVERS	Text	Unchecked		0	False
+Sheet1	Text object	TX192		General	Definition	Text	TOP COST DRIVERS	Text	Unchecked		0	False
+Sheet1	Text object	TX410		General	Definition	Text	TOTAL COST	Text	Unchecked		0	False
+Sheet1	Text object	TX385		General	Definition	Text	TOTAL COST	Text	Unchecked		0	False
+Sheet1	Text object	TX219		General	Definition	Text	TOTAL COST	Text	Unchecked		0	False
+Sheet1	Text object	TX94		General	Definition	Text	TYPE	Field	Unchecked		0	False
+Sheet1	Text object	TX68		General	Definition	Text	UNIT NO.	Field	Unchecked		0	False
+Sheet1	Text object	TX138		General	Definition	Text	UPDATE	Text	Unchecked		0	False
+Sheet1	Text object	TX179		General	Definition	Text	Update filters for	Text	Unchecked		0	False
+Sheet1	Text object	TX176		Actions	Action	Set Value	vApplyBookmark	Variable	Unchecked		0	False
+Sheet1	Text object	TX172		Actions	Action	Set Value	vApplyBookmark	Variable	Unchecked		0	False
+Sheet1	Text object	TX155		Actions	Action	Set Value	vApplyBookmark	Variable	Unchecked		0	False
+Sheet1	Text object	TX152		Actions	Action	Set Value	vApplyBookmark	Variable	Unchecked		0	False
+Sheet1	Inputbox	IB06		General	Membertext	Member	vArrowLeft	Variable	Unchecked		0	False
+Sheet1	Inputbox	IB06		General	Membertext	Member	vArrowRight	Variable	Unchecked		0	False
+Sheet1	Text object	TX177		Actions	Action	Set Value	vBookmarkList	Variable	Unchecked		0	False
+Sheet1	Text object	TX168		Actions	Action	Set Value	vBookmarkList	Variable	Unchecked		0	False
+Sheet1	Text object	TX775		Actions	Action	Set Value	vBookmarkListApply	Variable	Unchecked		0	False
+Sheet1	Text object	TX177		Actions	Action	Set Value	vBookmarkName	Variable	Unchecked		0	False
+Sheet1	Text object	TX167		Actions	Action	Set Value	vBookmarkName	Variable	Unchecked		0	False
+Sheet1	Text object	TX155		Actions	Action	Set Value	vBookmarkName	Variable	Unchecked		0	False
+Sheet1	Text object	TX152		Actions	Action	Set Value	vBookmarkName	Variable	Unchecked		0	False
+Sheet1	Text object	TX151		Actions	Action	Set Value	vBookmarkName	Variable	Unchecked		0	False
+Sheet1	Text object	TX407		Actions	Action	Set Value	vColumnList	Variable	Unchecked		0	False
+Sheet1	Text object	TX406		Actions	Action	Set Value	vColumnList	Variable	Unchecked		0	False
+Sheet1	Text object	TX368		Actions	Action	Set Value	vColumnList	Variable	Unchecked		0	False
+Sheet1	Text object	TX361		Actions	Action	Set Value	vColumnList	Variable	Unchecked		0	False
+Sheet1	Text object	TX198		Actions	Action	Set Value	vColumnList	Variable	Unchecked		0	False
+Sheet1	Text object	TX197		Actions	Action	Set Value	vColumnList	Variable	Unchecked		0	False
+Sheet1	Inputbox	IB06		General	Membertext	Member	vColumnList	Variable	Unchecked		0	False
+Sheet1	Text object	TX754		Actions	Action	Set Value	vColumnsCount	Variable	Unchecked		0	False
+Sheet1	Text object	TX752		Actions	Action	Set Value	vColumnsCount	Variable	Unchecked		0	False
+Sheet1	Text object	TX750		Actions	Action	Set Value	vColumnsCount	Variable	Unchecked		0	False
+Sheet1	Text object	TX749		Actions	Action	Set Value	vColumnsCount	Variable	Unchecked		0	False
+Sheet1	Text object	TX746		Actions	Action	Set Value	vColumnsCount	Variable	Unchecked		0	False
+Sheet1	Text object	TX745		Actions	Action	Set Value	vColumnsCount	Variable	Unchecked		0	False
+Sheet1	Inputbox	IB06		General	Membertext	Member	vColumnsCount	Variable	Unchecked		0	False
+Sheet1	Text object	TX742		Actions	Action	Set Value	vDateScroll	Variable	Unchecked		0	False
+Sheet1	Text object	TX739		Actions	Action	Set Value	vDateScroll	Variable	Unchecked		0	False
+Sheet1	Text object	TX56		Actions	Action	Set Value	vDateScroll	Variable	Unchecked		0	False
+Sheet1	Text object	TX55		Actions	Action	Set Value	vDateScroll	Variable	Unchecked		0	False
+Sheet1	Sheet	SH02	Sheet1	Actions	Action	Set Value	vDateScroll	Variable	Unchecked		0	False
+Sheet1	Text object	TX722		Actions	Action	Set Value	vDownload	Variable	Unchecked		0	False
+Sheet1	Text object	TX721		Actions	Action	Set Value	vDownload	Variable	Unchecked		0	False
+Sheet1	Text object	TX719		Actions	Action	Set Value	vDownload	Variable	Unchecked		0	False
+Sheet1	Text object	TX184		Actions	Action	Set Value	vDownload	Variable	Unchecked		0	False
+Sheet1	Text object	TX85		General	Definition	Text	VEHICLE SPECIFIC FILTERS	Text	Unchecked		0	False
+Sheet1	Text object	TX73		General	Definition	Text	VEHICLE SPECIFIC FILTERS	Text	Unchecked		0	False
+Sheet1	Inputbox	IB06		General	Membertext	Member	vHide	Variable	Unchecked		0	False
+Sheet1	Text object	TX399		Actions	Action	Set Value	vPageList	Variable	Unchecked		0	False
+Sheet1	Text object	TX394		Actions	Action	Set Value	vPageList	Variable	Unchecked		0	False
+Sheet1	Text object	TX360		Actions	Action	Set Value	vPageList	Variable	Unchecked		0	False
+Sheet1	Text object	TX355		Actions	Action	Set Value	vPageList	Variable	Unchecked		0	False
+Sheet1	Text object	TX215		Actions	Action	Set Value	vPageList	Variable	Unchecked		0	False
+Sheet1	Text object	TX214		Actions	Action	Set Value	vPageList	Variable	Unchecked		0	False
+Sheet1	Inputbox	IB06		General	Membertext	Member	vPageList	Variable	Unchecked		0	False
+Sheet1	Text object	TX409		Actions	Action	Set Value	vRowsCount	Variable	Unchecked		0	False
+Sheet1	Text object	TX408		Actions	Action	Set Value	vRowsCount	Variable	Unchecked		0	False
+Sheet1	Text object	TX370		Actions	Action	Set Value	vRowsCount	Variable	Unchecked		0	False
+Sheet1	Text object	TX369		Actions	Action	Set Value	vRowsCount	Variable	Unchecked		0	False
+Sheet1	Text object	TX205		Actions	Action	Set Value	vRowsCount	Variable	Unchecked		0	False
+Sheet1	Text object	TX204		Actions	Action	Set Value	vRowsCount	Variable	Unchecked		0	False
+Sheet1	Text object	TX766		Actions	Action	Set Value	vShowBarChart	Variable	Unchecked		0	False
+Sheet1	Text object	TX765		Actions	Action	Set Value	vShowBarChart	Variable	Unchecked		0	False
+Sheet1	Text object	TX762		Actions	Action	Set Value	vShowBarChart	Variable	Unchecked		0	False
+Sheet1	Text object	TX760		Actions	Action	Set Value	vShowBarChart	Variable	Unchecked		0	False
+Sheet1	Text object	TX759		Actions	Action	Set Value	vShowBarChart	Variable	Unchecked		0	False
+Sheet1	Text object	TX758		Actions	Action	Set Value	vShowBarChart	Variable	Unchecked		0	False
+Sheet1	Text object	TX298		Actions	Action	Set Value	vShowBarChart	Variable	Unchecked		0	False
+Sheet1	Text object	TX58		Actions	Action	Set Value	vShowBookmarkNew	Variable	Unchecked		0	False
+Sheet1	Text object	TX168		Actions	Action	Set Value	vShowBookmarkNew	Variable	Unchecked		0	False
+Sheet1	Text object	TX167		Actions	Action	Set Value	vShowBookmarkNew	Variable	Unchecked		0	False
+Sheet1	Text object	TX151		Actions	Action	Set Value	vShowBookmarkNew	Variable	Unchecked		0	False
+Sheet1	Text object	TX58		Actions	Action	Set Value	vShowBookmarkOld	Variable	Unchecked		0	False
+Sheet1	Text object	TX177		Actions	Action	Set Value	vShowBookmarkOld	Variable	Unchecked		0	False
+Sheet1	Text object	TX157		Actions	Action	Set Value	vShowBookmarkOld	Variable	Unchecked		0	False
+Sheet1	Text object	TX155		Actions	Action	Set Value	vShowBookmarkOld	Variable	Unchecked		0	False
+Sheet1	Text object	TX152		Actions	Action	Set Value	vShowBookmarkOld	Variable	Unchecked		0	False
+Sheet1	Text object	TX138		Actions	Action	Set Value	vShowCustomCalendar	Variable	Unchecked		0	False
+Sheet1	Sheet	SH02	Sheet1	Actions	Action	Set Value	vShowCustomCalendar	Variable	Unchecked		0	False
+Sheet1	Text object	TX57		Actions	Action	Set Value	vShowFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX188		Actions	Action	Set Value	vShowFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX187		Actions	Action	Set Value	vShowFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX186		Actions	Action	Set Value	vShowFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX61		Actions	Action	Set Value	vShowGroup	Variable	Unchecked		0	False
+Sheet1	Text object	TX127		Actions	Action	Set Value	vShowGroup	Variable	Unchecked		0	False
+Sheet1	Text object	TX125		Actions	Action	Set Value	vShowGroup	Variable	Unchecked		0	False
+Sheet1	Text object	TX124		Actions	Action	Set Value	vShowGroup	Variable	Unchecked		0	False
+Sheet1	Text object	TX775		Actions	Action	Set Value	vShowGroup2	Variable	Unchecked		0	False
+Sheet1	Text object	TX127		Actions	Action	Set Value	vShowGroup2	Variable	Unchecked		0	False
+Sheet1	Text object	TX125		Actions	Action	Set Value	vShowGroup2	Variable	Unchecked		0	False
+Sheet1	Text object	TX124		Actions	Action	Set Value	vShowGroup2	Variable	Unchecked		0	False
+Sheet1	Text object	TX120		Actions	Action	Set Value	vShowGroup2	Variable	Unchecked		0	False
+Sheet1	Text object	TX766		Actions	Action	Set Value	vShowLineChart	Variable	Unchecked		0	False
+Sheet1	Text object	TX765		Actions	Action	Set Value	vShowLineChart	Variable	Unchecked		0	False
+Sheet1	Text object	TX762		Actions	Action	Set Value	vShowLineChart	Variable	Unchecked		0	False
+Sheet1	Text object	TX760		Actions	Action	Set Value	vShowLineChart	Variable	Unchecked		0	False
+Sheet1	Text object	TX759		Actions	Action	Set Value	vShowLineChart	Variable	Unchecked		0	False
+Sheet1	Text object	TX758		Actions	Action	Set Value	vShowLineChart	Variable	Unchecked		0	False
+Sheet1	Text object	TX298		Actions	Action	Set Value	vShowLineChart	Variable	Unchecked		0	False
+Sheet1	Text object	TX97		Actions	Action	Set Value	vShowPenskeGroupFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX88		Actions	Action	Set Value	vShowPenskeGroupFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX86		Actions	Action	Set Value	vShowPenskeGroupFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX84		Actions	Action	Set Value	vShowPenskeGroupFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX76		Actions	Action	Set Value	vShowPenskeGroupFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX74		Actions	Action	Set Value	vShowPenskeGroupFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX72		Actions	Action	Set Value	vShowPenskeGroupFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX70		Actions	Action	Set Value	vShowPenskeGroupFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX449		Actions	Action	Set Value	vShowPopUp	Variable	Unchecked		0	False
+Sheet1	Text object	TX441		Actions	Action	Set Value	vShowPopUp	Variable	Unchecked		0	False
+Sheet1	Text object	TX247		Actions	Action	Set Value	vShowPopUp	Variable	Unchecked		0	False
+Sheet1	Text object	TX97		Actions	Action	Set Value	vShowReportSpecificFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX88		Actions	Action	Set Value	vShowReportSpecificFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX86		Actions	Action	Set Value	vShowReportSpecificFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX84		Actions	Action	Set Value	vShowReportSpecificFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX76		Actions	Action	Set Value	vShowReportSpecificFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX74		Actions	Action	Set Value	vShowReportSpecificFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX72		Actions	Action	Set Value	vShowReportSpecificFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX70		Actions	Action	Set Value	vShowReportSpecificFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX59		Actions	Action	Set Value	vShowSearch	Variable	Unchecked		0	False
+Sheet1	Text object	TX97		Actions	Action	Set Value	vShowVehicleSpecificFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX88		Actions	Action	Set Value	vShowVehicleSpecificFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX86		Actions	Action	Set Value	vShowVehicleSpecificFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX84		Actions	Action	Set Value	vShowVehicleSpecificFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX76		Actions	Action	Set Value	vShowVehicleSpecificFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX74		Actions	Action	Set Value	vShowVehicleSpecificFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX72		Actions	Action	Set Value	vShowVehicleSpecificFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX70		Actions	Action	Set Value	vShowVehicleSpecificFilters	Variable	Unchecked		0	False
+Sheet1	Text object	TX733		Actions	Action	Macro	WriteBookmarkList	Text	Unchecked		0	False
+Sheet1	Text object	TX177		Actions	Action	Macro	WriteBookmarkList	Text	Unchecked		0	False
+Sheet1	Text object	TX168		Actions	Action	Macro	WriteBookmarkList	Text	Unchecked		0	False
+Sheet1	Text object	TX157		Actions	Action	Macro	WriteBookmarkList	Text	Unchecked		0	False
+Sheet1	Text object	TX120		General	Definition	Text	X	Text	Unchecked		0	False
+Sheet1	Text object	TX775		General	Definition	Text	X   RESET FILTERS	Text	Unchecked		0	False
+Sheet1	Text object	TX95		General	Definition	Text	YEAR	Field	Unchecked		0	False
+
+
+
+DATE_NAME , %DATE_NAME    
+YEAR   , YEAR    
+QUARTER    , QUARTER    
+MONTH    , MONTH    
+WEEK    , WEEK    
+CUSTOM    , CUSTOM    
+
+	dim doc
+	set doc = ActiveDocument
+		
+	' Get current list
+	dim vList
+	set vList = doc.Variables("vBookmarkList")
+	'dim vList2
+	'set vList2= doc.Variables("vBookmarkName")
+		
+	' Open comments file
+	dim fso, f
+	set fso = CreateObject("Scripting.FileSystemObject")
+	set f = fso.OpenTextFile(getCsvPath, ForWriting, True, TriStateTrue)
+	
+	' Write data
+	dim str
+	str = vList.GetContent.String'+","+vList2.GetContent.String
+
+=if(vCurrentPeriod='month', '{< MonthID = {$(=Max('&'MonthID))}, MonthYear= ,Year = ,Quarter = ,Month = ,[COMP CODE]-={"ALL"} >}',
+'{< QuarterID = {$(=Max(QuarterID))}, MonthYear= ,Year = ,Quarter = ,Month = ,[COMP CODE]-={"ALL"} >}')
+
+='>='&  if(GetSelectedCount(%DATE_NAME)=0 or wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),  MonthStart(AddMonths(max({1}Calendar.DATE),if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1)))    	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),  	weekStart(max({1}Calendar.DATE)+if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1)*7)  		  		, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),  		makedate(year(AddMonths(max({1}Calendar.DATE),if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1)*3)),Pick(ceil(month(AddMonths(max({1}Calendar.DATE),if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1)*3))/3),'1','4','7','10'),1  	)  	  			, if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR'),  			makedate(Year(max({1}Calendar.DATE))+if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1))  			  			, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),  			date(vStart)  					  )))))  &'<='&  if(GetSelectedCount(%DATE_NAME)=0 or wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),  MonthEnd(AddMonths(max({1}Calendar.DATE),if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1)))    	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),  	weekEnd(max({1}Calendar.DATE)+if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1)*7)  		  		, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),  		makedate(year(AddMonths(max({1}Calendar.DATE),if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1)*3))  		,Pick(ceil(month(AddMonths(max({1}Calendar.DATE),if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1)*3))/3),'3','6','9','12')  		,Pick(ceil(month(AddMonths(max({1}Calendar.DATE),if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1)*3))/3),'31','30','30','31')  	)  	  			, if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR'),  			makedate(Year(max({1}Calendar.DATE))+if($(vEndPeriod)>=min({1}Calendar.DATE) and $(vStartPeriod)<=min({1}Calendar.DATE),$(vDateScroll),$(vDateScroll)-1),12,31)  			, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),  			date(vEnd)  					  )))))  //'>='&vStartPeriod&'<='&vEndPeriod
+

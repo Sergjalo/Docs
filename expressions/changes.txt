@@ -1,0 +1,155 @@
+*************************************************************
+после изменений пример у меня есть - работает как нужно, но если пришлю у тебя наверное не откроется.
+*************************************************************
+может ли из таблицы DATE быть выбрано больше одной записи? похоже что нет... тогда может не нужно 
+if(GetSelectedCount(%DATE_NAME)=0,
+'month',
+if(wildmatch(GetFieldSelections(%DATE_NAME),'MONTH'),
+'month'	
+	, if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK'),
+	'week'		
+			, if(wildmatch(GetFieldSelections(%DATE_NAME),'QUARTER'),
+			'quarter'
+				, if(wildmatch(GetFieldSelections(%DATE_NAME),'*YEAR'),
+				'year'
+					, if(wildmatch(GetFieldSelections(%DATE_NAME),'CUSTOM'),
+					'custom'
+				
+))))))
+а вместо этого просто добавить в таб. DATE поле DATE_NAME_LOWERCASE со значениями в lowercase ('month','week'..)
+Тогда можно завести переменную 
+vCurrentPeriod=		if(isNull(Only(DATE_NAME_LOWERCASE)),'month',DATE_NAME_LOWERCASE)
+vCurrentPeriodID =  if(isNull(Only(DATE_NAME_LOWERCASE)),'MonthID',DATE_ID_NAME)
+
+на триггер onSelect изменяемого поля (%DATE) из таблицы DATE вешаем такую функцию
+
+sub setFilterVariables ()
+	set vCr = ActiveDocument.Variables("vCurrentPeriod")
+	crVal=vCr.GetContent.String
+
+	Select case crVal
+		Case "month"
+			setCrVal="{< MonthID = {$(=Max(MonthID))}, MonthYear= ,Year = ,Quarter = ,Month = ,[COMP CODE]-={""ALL\""} >}"
+			setPrVal="{< MonthID = {$(=Max(MonthID-1))}, MonthYear= ,Year = ,Quarter = ,Month = ,[COMP CODE]-={""ALL\""} >}"
+		Case "quarter"
+			setCrVal="{< QuarterID = {$(=Max(QuarterID))}, MonthYear= ,Year = ,Quarter = ,Month = ,[COMP CODE]-={""ALL\""} >}"
+			setPrVal="{< QuarterID = {$(=Max(QuarterID-1))}, MonthYear= ,Year = ,Quarter = ,Month = ,[COMP CODE]-={""ALL\""} >}"
+		Case "week"
+			setCrVal="{< WeekID = {$(=Max(WeekID))}, MonthYear= ,Year = ,Quarter = ,Month = ,[COMP CODE]-={""ALL\""} >}"
+			setPrVal="{< WeekID = {$(=Max(WeekID-1))}, MonthYear= ,Year = ,Quarter = ,Month = ,[COMP CODE]-={""ALL\""} >}"
+		Case "year"
+			setCrVal="{< Year = {$(=Max(Year))}, MonthYear= ,Quarter = ,Month = ,[COMP CODE]-={""ALL\""} >}"
+			setPrVal="{< Year = {$(=Max(Year-1))}, MonthYear= ,Quarter = ,Month = ,[COMP CODE]-={""ALL\""} >}"
+	End Select	
+	ActiveDocument.Variables("vEvalPrMnt").SetContent setPrVal ,1
+	ActiveDocument.Variables("vEvalCrMnt").SetContent setCrVal ,1
+end sub 
+
+ на этом триггере висит 
+ 4 функции отчистки выбора полей ID
+ 2 функции установки текущего периода
+ vCurrentPeriod и vCurrentPeriodID
+ 2 функции установки фильтра
+ vEvalCrMnt vEvalPrMnt
+ vDateScroll сброс в 0
+ 
+т.е. в переменных vEvalСrMnt и vEvalPrMnt 
+мы держим выражение которое будет использоваться для подсчета сумм в сравнении с пред. периодом.
+чтобы это работало в календарь добавляем поля с специальными ID по месяцу, неделе, году
+
+MasterCalendar: 
+Load
+*,
+ AutoNumber(WeekYear, 'WeekCounter') as WeekID,
+ AutoNumber(MonthYear, 'MonthCounter') as MonthID ,
+ AutoNumber(QuarterYear, 'QuarterYear') as QuarterID  
+ ;
+Load 
+ TempDate AS %DATE, 
+ week(TempDate) As Week, 
+ Year(TempDate) As Year, 
+ Month(TempDate) As Month, 
+ Day(TempDate) As Day, 
+ 'Q' & ceil(month(TempDate) / 3) AS Quarter, 
+ Year(TempDate) &'Q' & ceil(month(TempDate) / 3) AS QuarterYear, 
+ Week(weekstart(TempDate)) & '-' & WeekYear(TempDate) as WeekYear, 
+ WeekDay(TempDate) as WeekDay, 
+ Date(monthstart(TempDate),'MMM dd - ')&Date(monthend(TempDate), 'dd YYYY') AS MonthYear 
+
+тогда выражение для вычисление предыдущего значения за месяц упростится до такого:
+=sum($(=vEvalPrMnt&' TOTAL_AMT'))
+/count(DISTINCT $(=vEvalPrMnt&' [COMP CODE]'))
+т.е. убираем сложность поддержки и + будет эффективней работать чем подход когда выбирается диапазон по датам. было так:
+	(sum({<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}TOTAL_AMT)
+	/ count(DISTINCT{<$(vHide),[COMP CODE]-={"ALL"},%DATE=,%DATE={">=$(vStartPeriodPrev)<=$(vEndPeriodPrev)"}>}[COMP CODE]))
+и пойдя еще дальше объявим переменную 
+vAMTtoCODE 
+= if(sum($(=vEvalPrMnt&' TOTAL_AMT'))=0,1,						// чтобы корректно работало с первым периодом для которого нет предыдущего. показываем 100% в сравнении
+sum($(=vEvalCrMnt&' TOTAL_AMT'))
+		/count(DISTINCT $(=vEvalCrMnt&' [COMP CODE]'))
+	/
+	(sum($(=vEvalPrMnt&' TOTAL_AMT'))
+		/count(DISTINCT $(=vEvalPrMnt&' [COMP CODE]')))
+	-1
+)		
+
+с этой переменной очень упрощается вычисление всех полей сравнения с пред. периодом 
+Например ▼ 6% than previous month 
+(TXT412) будет выглядить вот так:
+
+= if(
+	$(vAMTtoCODE)*100<0,
+	chr(9660),
+	chr(9650)
+)
+&chr(32)&
+num(fabs(
+	$(vAMTtoCODE)*100)	
+,'#,##0')
+&chr(37)&' than previous '&vCurrentPeriod
+*************************************************************
+преимущества в том что 
+1 только в одном месте сведены все ссылки на фильтр документа - макрос setFilterVariables		
+2 убрали вычилсения периодов по датам, заменили на фильтры по ID периодов
+3 убрали wildmatch(GetFieldSelections( из выражений, которые вычилсялись каждый раз - это медленно работает
+*************************************************************
+что такое custom пока не понятно. если это произвольная выборка по любому периоду, то нужно подумать...
+*************************************************************
+сегодня решил проверить как работают в ajax выражения и оказалось что из макроса в ajax нельзя установить переменную. 
+не приятно, но можно обойти. вместо макроса используем в триггере на onSelect присв. выражения двум переменным.
+vEvalPrMnt
+=if(isNull(Only(DATE_NAME_LOWERCASE)),
+							             '{< MonthID =   {'& '$'& '(=Max(MonthID-1))},   MonthYear= ,Year = ,Quarter = ,Month = ,[COMP CODE]-={"ALL"} >}',
+ if(DATE_NAME_LOWERCASE       ='month',  '{< MonthID =   {'& '$'& '(=Max(MonthID-1))},   MonthYear= ,Year = ,Quarter = ,Month = ,[COMP CODE]-={"ALL"} >}',
+   if(DATE_NAME_LOWERCASE     ='quarter','{< QuarterID = {'& '$'& '(=Max(QuarterID-1))}, MonthYear= ,Year = ,Quarter = ,Month = ,[COMP CODE]-={"ALL"} >}',
+     if(DATE_NAME_LOWERCASE   ='week','   {< WeekID =    {'& '$'& '(=Max(WeekID-1))},    MonthYear= ,Year = ,Quarter = ,Month = ,[COMP CODE]-={"ALL"} >}',
+       if(DATE_NAME_LOWERCASE ='year','   {< Year =      {'& '$'& '(=Max(Year-1))},      MonthYear= ,Quarter = ,Month = ,[COMP CODE]-={"ALL"} >}',
+       ''
+       )     )   ) ))
+и аналогично для vEvalCrMnt
+
+*************************************************************
+прописать поле DATE_ID_NAME в DATE где задать для каждого периода обозначение id (MonthID, WeekID и тд)
+vCurrentPeriodID = 
+=if(isNull(Only(DATE_NAME_LOWERCASE)),'MonthID',DATE_ID_NAME)
+*************************************************************
+на стрелке для скрола на пред. месяц:
+на действии SelectInField:
+в поле Field:
+vCurrentPeriodID
+а это устарело
+							=if(vCurrentPeriod='month','MonthID',
+								if(vCurrentPeriod='quarter','QuarterID',
+									if(vCurrentPeriod='week','WeekID',
+										if(vCurrentPeriod='year','Year',0
+									))))
+в поле значения:
+=Max($(=vCurrentPeriodID))+1
+							вместо 
+							=if(vCurrentPeriod='month',Max(MonthID)-1,
+								if(vCurrentPeriod='quarter',Max(QuarterID)-1,
+									if(vCurrentPeriod='week',Max(WeekID)-1,
+										if(vCurrentPeriod='year',Max(Year)-1,0
+									))))
+		
+для стрелки на след. месяц соответственно на -1 а +1		

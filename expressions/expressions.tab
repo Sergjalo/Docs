@@ -1,0 +1,598 @@
+﻿Sheet Name	ObjectID	Object Name	Location	Expression
+Sheet1	CH105	 	Chart Main Expression	=if(
+sum({<$(vHide)>}LABOR_HRS)
+=0 ,'0.0001',
+sum({<$(vHide)>}LABOR_HRS))
+
+Sheet1	CH105	 	Chart Main Expression	=if(
+
+sum({<$(vHide)>}LABOR_AMT)
+=0 ,'0.0001'
+,
+sum({<$(vHide)>}LABOR_AMT)
+)
+
+Sheet1	CH105	 	Chart Main Expression	=if(
+sum({<$(vHide)>}PARTS_AMT)
+=0 ,'0.0001',
+sum({<$(vHide)>}PARTS_AMT)
+)
+Sheet1	CH105	 	Chart Main Expression	=if(
+sum({<$(vHide)>}VENDOR_AMT)
+=0 ,'0.0001',
+sum({<$(vHide)>}VENDOR_AMT)
+)
+Sheet1	CH105	 	Chart Main Expression	=if(
+sum({<$(vHide)>}MISC_AMT)
+=0 ,'0.0001',
+sum({<$(vHide)>}MISC_AMT)
+)
+Sheet1	CH105	 	Chart Main Expression	=if(
+sum({<$(vHide)>}TAX_AMT)
+=0 ,'0.0001',
+sum({<$(vHide)>}TAX_AMT)
+)
+Sheet1	CH105	 	Chart Main Expression	=if(
+sum({<$(vHide)>}TOTAL_AMT)
+=0 ,'0.0001',
+sum({<$(vHide)>}TOTAL_AMT)
+)
+Sheet1	CH105	 	Chart Main Expression	=if(
+sum({<$(vHide)>}TOTAL_AMT)
+=0 ,'0.0001',
+sum({<$(vHide)>}TOTAL_AMT)
+)
+Sheet1	CH105	 	Chart Main Expression	=sum(total aggr(count(DISTINCT {<Calendar.DATE={">=$(vStartPeriod)<=$(vEndPeriod)"}>} [COMP CODE]),[COMP CODE]))
+Sheet1	CH105	 	Chart Main Expression	=RowNo(TOTAL)
+Sheet1	CH106	 	Chart Main Expression	=if(
+sum({<$(vHide)>}LABOR_HRS)
+=0 ,'0.0001',
+sum({<$(vHide)>}LABOR_HRS))
+
+Sheet1	CH106	 	Chart Main Expression	=if(
+
+sum({<$(vHide)>}LABOR_AMT)
+=0 ,'0.0001'
+,
+sum({<$(vHide)>}LABOR_AMT)
+)
+
+Sheet1	CH106	 	Chart Main Expression	=if(
+sum({<$(vHide)>}PARTS_AMT)
+=0 ,'0.0001',
+sum({<$(vHide)>}PARTS_AMT)
+)
+Sheet1	CH106	 	Chart Main Expression	=if(
+sum({<$(vHide)>}VENDOR_AMT)
+=0 ,'0.0001',
+sum({<$(vHide)>}VENDOR_AMT)
+)
+Sheet1	CH106	 	Chart Main Expression	=if(
+sum({<$(vHide)>}MISC_AMT)
+=0 ,'0.0001',
+sum({<$(vHide)>}MISC_AMT)
+)
+Sheet1	CH106	 	Chart Main Expression	=if(
+sum({<$(vHide)>}TAX_AMT)
+=0 ,'0.0001',
+sum({<$(vHide)>}TAX_AMT)
+)
+Sheet1	CH106	 	Chart Main Expression	=if(
+sum({<$(vHide)>}TOTAL_AMT)
+=0 ,'0.0001',
+sum({<$(vHide)>}TOTAL_AMT)
+)
+Sheet1	CH106	 	Chart Main Expression	=if(
+sum({<$(vHide)>}TOTAL_AMT)
+=0 ,'0.0001',
+sum({<$(vHide)>}TOTAL_AMT)
+)
+Sheet1	CH106	 	Chart Main Expression	=sum(total aggr(count(DISTINCT {<Calendar.DATE={">=$(vStartPeriod)<=$(vEndPeriod)"}>} [COMP CODE]),[COMP CODE]))
+Sheet1	CH106	 	Chart Main Expression	=RowNo(TOTAL)
+Sheet1	CH107	 	Chart Main Expression	=if(
+sum({<$(vHide)>}LABOR_HRS)
+=0 ,'0.0001',
+sum({<$(vHide)>}LABOR_HRS))
+
+Sheet1	CH107	 	Chart Main Expression	=if(
+
+sum({<$(vHide)>}LABOR_AMT)
+=0 ,'0.0001'
+,
+sum({<$(vHide)>}LABOR_AMT)
+)
+
+Sheet1	CH107	 	Chart Main Expression	=if(
+sum({<$(vHide)>}PARTS_AMT)
+=0 ,'0.0001',
+sum({<$(vHide)>}PARTS_AMT)
+)
+Sheet1	CH107	 	Chart Main Expression	=if(
+sum({<$(vHide)>}VENDOR_AMT)
+=0 ,'0.0001',
+sum({<$(vHide)>}VENDOR_AMT)
+)
+Sheet1	CH107	 	Chart Main Expression	=if(
+sum({<$(vHide)>}MISC_AMT)
+=0 ,'0.0001',
+sum({<$(vHide)>}MISC_AMT)
+)
+Sheet1	CH107	 	Chart Main Expression	=if(
+sum({<$(vHide)>}TAX_AMT)
+=0 ,'0.0001',
+sum({<$(vHide)>}TAX_AMT)
+)
+Sheet1	CH107	 	Chart Main Expression	=if(
+sum({<$(vHide)>}TOTAL_AMT)
+=0 ,'0.0001',
+sum({<$(vHide)>}TOTAL_AMT)
+)
+Sheet1	CH107	 	Chart Main Expression	=if(
+sum({<$(vHide)>}TOTAL_AMT)
+=0 ,'0.0001',
+sum({<$(vHide)>}TOTAL_AMT)
+)
+Sheet1	CH107	 	Chart Main Expression	=sum(total aggr(count(DISTINCT {<Calendar.DATE={">=$(vStartPeriod)<=$(vEndPeriod)"}>} [COMP CODE]),[COMP CODE]))
+Sheet1	CH107	 	Chart Main Expression	=RowNo(TOTAL)
+Sheet1	CH108	COST	Chart Main Expression	=if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK','MONTH') or  isnull(GetFieldSelections(%DATE_NAME))
+, sum({<%Calendar.TempDate=>}TOTAL_AMT)
+,if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR')
+, sum({<%Month=>}TOTAL_AMT) 
+))
+Sheet1	CH108	COST	Chart Main Expression	==only( {<$(vHideChart)>}
+if(%CHART_MONTH=%Month or %CHART_DATE=%Calendar.TempDate
+,
+	if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR')
+	, upper(%Month)
+	, 
+		if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK')
+		,upper( month(%Calendar.TempDate))&' '&day(%Calendar.TempDate)
+		, 
+			if(wildmatch(GetFieldSelections(%DATE_NAME),'MONTH') or isnull(GetFieldSelections(%DATE_NAME))
+			,
+				if((match(month(%Calendar.TempDate),'Jan','Mar','May','Jul','Aug','Oct','Dec') and day(%Calendar.TempDate)=31)
+				or (match(month(%Calendar.TempDate),'Apr','Jun','Sep','Nov') and day(%Calendar.TempDate)=30)
+				or (match(month(%Calendar.TempDate),'Feb') and day(%Calendar.TempDate)=28)	
+				, upper(month(%Calendar.TempDate))&' '&day(%Calendar.TempDate)
+				,
+					if(%Calendar.TempDate=vStartPeriod+14
+					, upper(month(%Calendar.TempDate))&' 15'
+					, 
+						if(%Calendar.TempDate=vStartPeriod
+						,upper( month(%Calendar.TempDate))&' 1'
+						,' '
+						)
+					)
+				)
+			)
+		)
+	)	
+)
+)
+
+Sheet1	CH123	COST	Chart Main Expression	=if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK','MONTH') or  isnull(GetFieldSelections(%DATE_NAME))
+, sum({<%Calendar.TempDate=, %Month=>}TOTAL_AMT)
+,if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR')
+, sum({<%Calendar.TempDate=, %Month=>}TOTAL_AMT) 
+))
+Sheet1	CH123	COST	Chart Main Expression	==only( {<$(vHideChart)>}
+if(%CHART_MONTH=%Month or %CHART_DATE=%Calendar.TempDate
+,
+	if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR')
+	, upper(%Month)
+	, 
+		if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK')
+		,upper( month(%Calendar.TempDate))&' '&day(%Calendar.TempDate)
+		, 
+			if(wildmatch(GetFieldSelections(%DATE_NAME),'MONTH') or isnull(GetFieldSelections(%DATE_NAME))
+			,
+				if((match(month(%Calendar.TempDate),'Jan','Mar','May','Jul','Aug','Oct','Dec') and day(%Calendar.TempDate)=31)
+				or (match(month(%Calendar.TempDate),'Apr','Jun','Sep','Nov') and day(%Calendar.TempDate)=30)
+				or (match(month(%Calendar.TempDate),'Feb') and day(%Calendar.TempDate)=28)	
+				, upper(month(%Calendar.TempDate))&' '&day(%Calendar.TempDate)
+				,
+					if(%Calendar.TempDate=vStartPeriod+14
+					, upper(month(%Calendar.TempDate))&' 15'
+					, 
+						if(%Calendar.TempDate=vStartPeriod
+						,upper( month(%Calendar.TempDate))&' 1'
+						,' '
+						)
+					)
+				)
+			)
+		)
+	)	
+)
+)
+
+Sheet1	CH125	LABOR                      HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}LABOR_HRS)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}LABOR_HRS)
+))
+Sheet1	CH125	LABOR                      HOURS	Chart Main Expression	=if(
+If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}LABOR_AMT)
+)=0 ,'0.0001'
+,If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}LABOR_AMT)
+)
+)
+Sheet1	CH125	LABOR                      HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}PARTS_AMT)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}PARTS_AMT)
+))
+Sheet1	CH125	LABOR                      HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}VENDOR_AMT)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}VENDOR_AMT)
+))
+Sheet1	CH125	LABOR                      HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}MISC_AMT)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}MISC_AMT)
+))
+Sheet1	CH125	LABOR                      HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}TAX_AMT)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}TAX_AMT)
+))
+Sheet1	CH125	LABOR                      HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}TOTAL_AMT)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}TOTAL_AMT)
+))
+Sheet1	CH125	LABOR                      HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}TOTAL_AMT)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}TOTAL_AMT)
+))
+Sheet1	CH125	LABOR                      HOURS	Chart Main Expression	=sum(total aggr(count(DISTINCT {<Calendar.DATE={">=$(vStartPeriod)<=$(vEndPeriod)"}>} [COMP CODE]),[COMP CODE]))
+Sheet1	CH125	LABOR                      HOURS	Chart Main Expression	=RowNo(TOTAL)
+Sheet1	CH126	LABOR                      HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}LABOR_HRS)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}LABOR_HRS)
+))
+Sheet1	CH126	LABOR                      HOURS	Chart Main Expression	=if(
+If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}LABOR_AMT)
+)=0 ,'0.0001'
+,If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}LABOR_AMT)
+)
+)
+Sheet1	CH126	LABOR                      HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}PARTS_AMT)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}PARTS_AMT)
+))
+Sheet1	CH126	LABOR                      HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}VENDOR_AMT)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}VENDOR_AMT)
+))
+Sheet1	CH126	LABOR                      HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}MISC_AMT)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}MISC_AMT)
+))
+Sheet1	CH126	LABOR                      HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}TAX_AMT)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}TAX_AMT)
+))
+Sheet1	CH126	LABOR                      HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}TOTAL_AMT)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}TOTAL_AMT)
+))
+Sheet1	CH126	LABOR                      HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}TOTAL_AMT)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}TOTAL_AMT)
+))
+Sheet1	CH126	LABOR                      HOURS	Chart Main Expression	=sum(total aggr(count(DISTINCT {<Calendar.DATE={">=$(vStartPeriod)<=$(vEndPeriod)"}>} [COMP CODE]),[COMP CODE]))
+Sheet1	CH126	LABOR                      HOURS	Chart Main Expression	=RowNo(TOTAL)
+Sheet1	CH134	 	Chart Main Expression	=if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK','MONTH') or  isnull(GetFieldSelections(%DATE_NAME)),    
+Max({<%Calendar.TempDate=>}Aggr(sum({<%Calendar.TempDate=>}TOTAL_AMT),%Calendar.TempDate)), 
+if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR'),
+Max({<%Month=>}Aggr(sum({<%Month=>}TOTAL_AMT),%Month))  
+)  )  
+Sheet1	CH134	 	Chart Main Expression	=Dual('Avg.',
+sum({<%Calendar.TempDate=, %Month=>}TOTAL_AMT)
+/
+count(DISTINCT{<%Calendar.TempDate=, %Month=>} 
+
+if(WildMatch(GetFieldSelections(%DATE_NAME),'WEEK','MONTH') or isnull(GetFieldSelections(%DATE_NAME))
+, %Calendar.TempDate
+,
+	if(WildMatch(GetFieldSelections(%DATE_NAME),'YEAR'), %Month
+	)
+)
+)
+
+)
+Sheet1	CH135	 	Chart Main Expression	=if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK','MONTH') or  isnull(GetFieldSelections(%DATE_NAME)),    
+Max({<%Calendar.TempDate=>}Aggr(sum({<%Calendar.TempDate=>}TOTAL_AMT),%Calendar.TempDate)), 
+if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR'),
+Max({<%Month=>}Aggr(sum({<%Month=>}TOTAL_AMT),%Month))  
+)  )  
+Sheet1	CH135	 	Chart Main Expression	=Dual('Avg.',
+sum({<%Calendar.TempDate=, %Month=>}TOTAL_AMT)
+/
+count(DISTINCT{<%Calendar.TempDate=, %Month=>} 
+
+if(WildMatch(GetFieldSelections(%DATE_NAME),'WEEK','MONTH') or isnull(GetFieldSelections(%DATE_NAME))
+, %Calendar.TempDate
+,
+	if(WildMatch(GetFieldSelections(%DATE_NAME),'YEAR'), %Month
+	)
+)
+)
+
+)
+Sheet1	CH136	 	Chart Main Expression	=if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK','MONTH') or  isnull(GetFieldSelections(%DATE_NAME)),    
+Max({<%Calendar.TempDate=>}Aggr(sum({<%Calendar.TempDate=>}TOTAL_AMT),%Calendar.TempDate)), 
+if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR'),
+Max({<%Month=>}Aggr(sum({<%Month=>}TOTAL_AMT),%Month))  
+)  )  
+Sheet1	CH136	 	Chart Main Expression	=Dual('Avg.',
+sum({<%Calendar.TempDate=, %Month=>}TOTAL_AMT)
+/
+count(DISTINCT{<%Calendar.TempDate=, %Month=>} 
+
+if(WildMatch(GetFieldSelections(%DATE_NAME),'WEEK','MONTH') or isnull(GetFieldSelections(%DATE_NAME))
+, %Calendar.TempDate
+,
+	if(WildMatch(GetFieldSelections(%DATE_NAME),'YEAR'), %Month
+	)
+)
+)
+
+)
+Sheet1	CH49	 	Chart Main Expression	=only({<$(vHide)>} [COMP CODE DESCRIPTION])
+Sheet1	CH49	 	Chart Main Expression	=sum({<$(vHide)>}TOTAL_AMT)
+Sheet1	CH52	COST	Chart Main Expression	=if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK','MONTH') or  isnull(GetFieldSelections(%DATE_NAME))
+, sum({<%Calendar.TempDate=>}TOTAL_AMT)
+,if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR')
+, sum({<%Month=>}TOTAL_AMT) 
+))
+Sheet1	CH52	COST	Chart Main Expression	==only( {<$(vHideChart)>}
+if(%CHART_MONTH=%Month or %CHART_DATE=%Calendar.TempDate
+,
+	if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR')
+	, upper(%Month)
+	, 
+		if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK')
+		,upper( month(%Calendar.TempDate))&' '&day(%Calendar.TempDate)
+		, 
+			if(wildmatch(GetFieldSelections(%DATE_NAME),'MONTH') or isnull(GetFieldSelections(%DATE_NAME))
+			,
+				if((match(month(%Calendar.TempDate),'Jan','Mar','May','Jul','Aug','Oct','Dec') and day(%Calendar.TempDate)=31)
+				or (match(month(%Calendar.TempDate),'Apr','Jun','Sep','Nov') and day(%Calendar.TempDate)=30)
+				or (match(month(%Calendar.TempDate),'Feb') and day(%Calendar.TempDate)=28)	
+				, upper(month(%Calendar.TempDate))&' '&day(%Calendar.TempDate)
+				,
+					if(%Calendar.TempDate=vStartPeriod+14
+					, upper(month(%Calendar.TempDate))&' 15'
+					, 
+						if(%Calendar.TempDate=vStartPeriod
+						,upper( month(%Calendar.TempDate))&' 1'
+						,' '
+						)
+					)
+				)
+			)
+		)
+	)	
+)
+)
+
+Sheet1	CH62	COST	Chart Main Expression	=if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK','MONTH') or  isnull(GetFieldSelections(%DATE_NAME))
+, sum({<%Calendar.TempDate=>}TOTAL_AMT)
+,if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR')
+, sum({<%Month=>}TOTAL_AMT) 
+))
+Sheet1	CH62	COST	Chart Main Expression	==only( {<$(vHideChart)>}
+if(%CHART_MONTH=%Month or %CHART_DATE=%Calendar.TempDate
+,
+	if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR')
+	, upper(%Month)
+	, 
+		if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK')
+		,upper( month(%Calendar.TempDate))&' '&day(%Calendar.TempDate)
+		, 
+			if(wildmatch(GetFieldSelections(%DATE_NAME),'MONTH') or isnull(GetFieldSelections(%DATE_NAME))
+			,
+				if((match(month(%Calendar.TempDate),'Jan','Mar','May','Jul','Aug','Oct','Dec') and day(%Calendar.TempDate)=31)
+				or (match(month(%Calendar.TempDate),'Apr','Jun','Sep','Nov') and day(%Calendar.TempDate)=30)
+				or (match(month(%Calendar.TempDate),'Feb') and day(%Calendar.TempDate)=28)	
+				, upper(month(%Calendar.TempDate))&' '&day(%Calendar.TempDate)
+				,
+					if(%Calendar.TempDate=vStartPeriod+14
+					, upper(month(%Calendar.TempDate))&' 15'
+					, 
+						if(%Calendar.TempDate=vStartPeriod
+						,upper( month(%Calendar.TempDate))&' 1'
+						,' '
+						)
+					)
+				)
+			)
+		)
+	)	
+)
+)
+
+Sheet1	CH63	 	Chart Main Expression	=only({<$(vHide)>} [COMP CODE DESCRIPTION])
+Sheet1	CH63	 	Chart Main Expression	=sum({<$(vHide)>}TOTAL_AMT)
+Sheet1	CH64	LABOR                 HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}LABOR_HRS)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}LABOR_HRS)
+))
+Sheet1	CH64	LABOR                 HOURS	Chart Main Expression	=if(
+If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}LABOR_AMT)
+)=0 ,'0.0001'
+,If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}LABOR_AMT)
+)
+)
+Sheet1	CH64	LABOR                 HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}PARTS_AMT)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}PARTS_AMT)
+))
+Sheet1	CH64	LABOR                 HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}VENDOR_AMT)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}VENDOR_AMT)
+))
+Sheet1	CH64	LABOR                 HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}MISC_AMT)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}MISC_AMT)
+))
+Sheet1	CH64	LABOR                 HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}TAX_AMT)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}TAX_AMT)
+))
+Sheet1	CH64	LABOR                 HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}TOTAL_AMT)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}TOTAL_AMT)
+))
+Sheet1	CH64	LABOR                 HOURS	Chart Main Expression	=if(If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}TOTAL_AMT)
+)=0 ,'0.0001',If(RowNo(TOTAL)<=vRowsCount+4
+and RowNo(TOTAL)>=vRowsCount,
+sum({<$(vHide)>}TOTAL_AMT)
+))
+Sheet1	CH64	LABOR                 HOURS	Chart Main Expression	=sum(total aggr(count(DISTINCT {<Calendar.DATE={">=$(vStartPeriod)<=$(vEndPeriod)"}>} [COMP CODE]),[COMP CODE]))
+Sheet1	CH64	LABOR                 HOURS	Chart Main Expression	=RowNo(TOTAL)
+Sheet1	CH65	COST	Chart Main Expression	=if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK','MONTH') or  isnull(GetFieldSelections(%DATE_NAME))
+, sum({<%Calendar.TempDate=>}TOTAL_AMT)
+,if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR')
+, sum({<%Month=>}TOTAL_AMT) 
+))
+Sheet1	CH65	COST	Chart Main Expression	==only( {<$(vHideChart)>}
+if(%CHART_MONTH=%Month or %CHART_DATE=%Calendar.TempDate
+,
+	if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR')
+	, upper(%Month)
+	, 
+		if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK')
+		,upper( month(%Calendar.TempDate))&' '&day(%Calendar.TempDate)
+		, 
+			if(wildmatch(GetFieldSelections(%DATE_NAME),'MONTH') or isnull(GetFieldSelections(%DATE_NAME))
+			,
+				if((match(month(%Calendar.TempDate),'Jan','Mar','May','Jul','Aug','Oct','Dec') and day(%Calendar.TempDate)=31)
+				or (match(month(%Calendar.TempDate),'Apr','Jun','Sep','Nov') and day(%Calendar.TempDate)=30)
+				or (match(month(%Calendar.TempDate),'Feb') and day(%Calendar.TempDate)=28)	
+				, upper(month(%Calendar.TempDate))&' '&day(%Calendar.TempDate)
+				,
+					if(%Calendar.TempDate=vStartPeriod+14
+					, upper(month(%Calendar.TempDate))&' 15'
+					, 
+						if(%Calendar.TempDate=vStartPeriod
+						,upper( month(%Calendar.TempDate))&' 1'
+						,' '
+						)
+					)
+				)
+			)
+		)
+	)	
+)
+)
+
+Sheet1	CH66	 	Chart Main Expression	=only({<$(vHide)>} [COMP CODE DESCRIPTION])
+Sheet1	CH66	 	Chart Main Expression	=sum({<$(vHide)>}TOTAL_AMT)
+Sheet1	CH69	COST	Chart Main Expression	=if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK','MONTH') or  isnull(GetFieldSelections(%DATE_NAME))
+, sum({<%Calendar.TempDate=>}TOTAL_AMT)
+,if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR')
+, sum({<%Month=>}TOTAL_AMT) 
+))
+Sheet1	CH69	COST	Chart Main Expression	==only( {<$(vHideChart)>}
+if(%CHART_MONTH=%Month or %CHART_DATE=%Calendar.TempDate
+,
+	if(wildmatch(GetFieldSelections(%DATE_NAME),'YEAR')
+	, upper(%Month)
+	, 
+		if(wildmatch(GetFieldSelections(%DATE_NAME),'WEEK')
+		,upper( month(%Calendar.TempDate))&' '&day(%Calendar.TempDate)
+		, 
+			if(wildmatch(GetFieldSelections(%DATE_NAME),'MONTH') or isnull(GetFieldSelections(%DATE_NAME))
+			,
+				if((match(month(%Calendar.TempDate),'Jan','Mar','May','Jul','Aug','Oct','Dec') and day(%Calendar.TempDate)=31)
+				or (match(month(%Calendar.TempDate),'Apr','Jun','Sep','Nov') and day(%Calendar.TempDate)=30)
+				or (match(month(%Calendar.TempDate),'Feb') and day(%Calendar.TempDate)=28)	
+				, upper(month(%Calendar.TempDate))&' '&day(%Calendar.TempDate)
+				,
+					if(%Calendar.TempDate=vStartPeriod+14
+					, upper(month(%Calendar.TempDate))&' 15'
+					, 
+						if(%Calendar.TempDate=vStartPeriod
+						,upper( month(%Calendar.TempDate))&' 1'
+						,' '
+						)
+					)
+				)
+			)
+		)
+	)	
+)
+)
+
