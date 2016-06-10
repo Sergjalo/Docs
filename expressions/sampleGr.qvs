@@ -1,0 +1,172 @@
+﻿///$tab Main
+SET ThousandSep=',';
+SET DecimalSep='.';
+SET MoneyThousandSep=',';
+SET MoneyDecimalSep='.';
+SET MoneyFormat='$#,##0.00;($#,##0.00)';
+SET TimeFormat='hh:mm:ss';
+SET DateFormat='M/D/YYYY';
+SET TimestampFormat='M/D/YYYY hh:mm:ss[.fff]';
+SET MonthNames='Jan;Feb;Mar;Apr;May;Jun;Jul;Aug;Sep;Oct;Nov;Dec';
+SET DayNames='Mon;Tue;Wed;Thu;Fri;Sat;Sun';
+SET LongMonthNames='January;February;March;April;May;June;July;August;September;October;November;December';
+SET LongDayNames='Monday;Tuesday;Wednesday;Thursday;Friday;Saturday;Sunday';
+SET FirstWeekDay=0;
+SET BrokenWeeks=1;
+SET ReferenceDay=0;
+SET FirstMonthOfYear=1;
+SET CollationLocale='en-US';
+Characters:
+Load Chr(RecNo()+Ord('A')-1) as Alpha, RecNo() as Num autogenerate 26;
+ 
+ASCII:
+Load 
+ if(RecNo()>=65 and RecNo()<=90,RecNo()-64) as Num,
+ Chr(RecNo()) as AsciiAlpha, 
+ RecNo() as AsciiNum
+autogenerate 255
+ Where (RecNo()>=32 and RecNo()<=126) or RecNo()>=160 ;
+ 
+Transactions_:
+Load
+ TransLineID, 
+ TransID,
+ mod(TransID,26)+1 as Num,
+ Pick(Ceil(7*Rand1),'A','B','C','D','E','F','G') as Dim1,
+ Pick(Ceil(11*Rand1),'a','b','c','d','e','f','g','h','i','j','k') as Dim2,
+ Pick(Ceil(3*Rand()),'X','Y','Z') as Dim3,
+ Round(1000*Rand()*Rand()*Rand1) as Expression1,
+ Round(  10*Rand()*Rand()*Rand1) as Expression2,
+ Round(Rand()*Rand1,0.00001) as Expression3;
+Load 
+ Rand() as Rand1,
+ IterNo() as TransLineID,
+ RecNo() as TransID
+Autogenerate 100000
+ While Rand()<=0.5 or IterNo()=1;
+
+ Comment Field Dim1 With "Index is in DimIdx1";
+
+/*
+// ----------------------------------------   create idx for dimension field that 'll be in paging straight table
+DimIdx:
+LOAD distinct
+Dim1
+resident Transactions_
+order by Dim1;
+
+DimIdx1:
+LOAD 
+Dim1,
+RecNo() as Idx1
+resident DimIdx;
+drop table DimIdx;
+// ----------------------------------------   second
+DimIdx:
+LOAD distinct
+Dim2
+resident Transactions_
+order by Dim2;
+
+DimIdx2:
+LOAD 
+Dim2,
+RecNo() as Idx2
+resident DimIdx
+order by Dim2;
+
+drop table DimIdx;
+// ----------------------------------------   create idx for dimension field that 'll be in paging straight table
+
+join(Transactions_)
+LOAD 
+Idx1 as Idx1_,
+Dim1
+resident DimIdx1;
+
+
+JOIN (Transactions_)
+LOAD 
+Idx2 as Idx2_,
+Dim2
+resident DimIdx2;
+
+Transactions:
+LOAD
+*,
+Idx1_*10000+Idx2_ as Idx
+resident Transactions_;
+*/
+
+Keys_:
+LOAD distinct
+Dim1,
+Dim2
+resident Transactions_;
+
+Keys:
+Load 
+*,
+recno() as Idx
+resident Keys_
+order by Dim1,Dim2;
+
+join Keys:
+Load 
+*,
+recno() as IdxD2
+resident Keys_
+order by Dim1,Dim2 desc;
+
+join Keys:
+Load 
+*,
+recno() as IdxD1
+resident Keys_
+order by Dim1 desc,Dim2;
+
+join Keys:
+Load 
+*,
+recno() as IdxD12
+resident Keys_
+order by Dim1 desc,Dim2 desc;
+
+drop table Keys_;
+
+join(Transactions_)
+LOAD 
+Idx,
+IdxD2,
+IdxD1,
+IdxD12,
+Dim1,
+Dim2
+resident Keys;
+
+drop table Keys;
+//drop table Transactions_;
+
+
+//drop Fields Idx2_, Idx1_;
+
+/*
+Nm:
+LOAD RecNo( ) as A autogenerate(11);
+*/
+
+LabelsN:
+LOAD * INLINE [
+    F1, A
+    sum sales, 1
+    sum costs, 2
+    avg sales, 3
+    avg costs, 4
+];
+
+
+
+
+Nm:
+LOAD RecNo( ) as A autogenerate(25);
+
